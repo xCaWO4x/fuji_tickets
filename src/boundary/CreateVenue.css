@@ -1,0 +1,72 @@
+/* CreateVenue.css */
+.CreateVenue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .CreateVenue label {
+    margin-right: 10px;
+  }
+  
+  .CreateVenue input {
+    margin-right: 10px;
+    padding: 5px;
+  }
+  
+  .CreateVenue button {
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .Stage {
+    background-color: #ccc;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .Seating-layout {
+    margin: 20px 0;
+  }
+  
+  .Seating-section {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+  
+  .Row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+  }
+  
+  .Seat {
+    padding: 5px;
+    margin: 2px;
+    border: 1px solid #000;
+    width: 30px; 
+    text-align: center; 
+  }
+  
+  .Inputs {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .Inputs input {
+    margin: 0 5px;
+  }
+  
+  .Note {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .Invisible {
+    visibility: hidden; 
+  }
+  
+  
