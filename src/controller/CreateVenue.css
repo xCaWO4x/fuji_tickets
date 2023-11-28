@@ -69,4 +69,23 @@
     visibility: hidden; 
   }
   
+  .SectionRow {
+    margin-right: 20px; /* Adjust the value as needed */
+  }
+
+  .SectionLabels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px; /* Adjust as needed based on the total width of the sections */
+  }
+  
+  .SectionLabel {
+    text-align: center;
+    flex: 1; /* Adjust if you have a specific width for sections */
+  }
+
+  .SectionRow:not(:last-child) {
+    border-right: 1px solid #000; /* This adds a line between the sections */
+  }
   

@@ -26,7 +26,16 @@ const CreateVenue = () => {
   const totalColumns = sections.left.columns + sections.center.columns + sections.right.columns;
 
   let layout = [];
-
+  const sectionLabels = (
+    <div className="SectionLabels" key="section-labels">
+      {['left', 'center', 'right'].map(sectionName => (
+        <div className="SectionLabel" key={`${sectionName}-label`}>
+          {sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}
+        </div>
+      ))}
+    </div>
+  );
+  layout.push(sectionLabels);
   for (let r = 0; r < maxRows; r++) {
     let rowSeats = [];
     let cumulativeColumns = 0;

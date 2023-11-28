@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import CreateVenue from './boundary/CreateVenue.js';
+import CreateVenue from './controller/CreateVenue.js';
 
 function App() {
   return (
