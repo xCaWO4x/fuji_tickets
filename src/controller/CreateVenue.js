@@ -9,6 +9,39 @@ const CreateVenue = () => {
     right: { rows: 4, columns: 3 }
   });
 
+  //Handler for creating venue
+   const handlecreateVenue = () => {
+    // const handleLogin = async () => {
+    //   try {
+    //     const response = await fetch('your-authentication-endpoint', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ username, password }),
+    //     });
+  
+    //     if (!response.ok) {
+    //       // Handle authentication error, e.g., show an error message to the user
+    //       console.error('Authentication failed');
+    //       return;
+    //     }
+  
+    //     // Assuming the server responds with a token upon successful authentication
+    //     const data = await response.json();
+    //     const authToken = data.token;
+  
+    //     // Now you can store the authToken in your application state or in a cookie
+    //     // Redirect the user or perform other actions as needed
+    //   } catch (error) {
+    //     console.error('Error during authentication:', error);
+    //   }
+    // };
+    //   // return null console.log('Authentication:', credentials)
+    //   // navigate("/venueLogin")
+   } 
+  
+  
   // Handler for section input changes
   const handleSectionInputChange = (sectionName, type, value) => {
     setSections(prevSections => ({
@@ -86,7 +119,9 @@ const CreateVenue = () => {
       <div className="Venue-name-section">
         <label>Venue name:</label>
         <input type="text" placeholder="Enter venue name" className="Venue-input" />
-        <button className="Create-button">Create Venue</button>
+        {/* This password input label is temporary. We will change to jwt? token for the next iteration */}
+        <input type="text" placeholder="Choose a Password" className="Venue-input" />
+        <button className="Create-button" onClick={handlecreateVenue}>Create Venue</button>    
       </div>
       <div className="Stage">Stage</div>
       <div className="Seating-layout">

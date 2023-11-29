@@ -21,7 +21,6 @@ const Home = () => {
         <h2>Home Page</h2>
         
         <button onClick={handlevenueLogin}>Venue Login/Create</button>
-        {/* <button onClick={handleConsumer}>Consumer</button> */}
         <button onClick={handleadminLogin}>Admin Login</button> 
       </div>
     )

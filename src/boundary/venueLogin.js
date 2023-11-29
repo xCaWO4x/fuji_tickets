@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './venueLogin.css'
 const Login = () => {
     // const [venueID, setVenueID] = useState('');
     const [credentials, setCredentials] = useState('')
