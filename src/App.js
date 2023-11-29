@@ -1,6 +1,8 @@
-// import logo from './logo.svg';
-import './App.css'
-import React from 'react'
+import './App.css';
+import React from 'react';
+import CreateVenue from './controller/CreateVenue.js';
+
+
 import ReactDOM from "react-dom/client"
 // import { BrowserRouter, Routes, Route } from "react-router-dom" 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -11,8 +13,16 @@ import Login from './Pages/venueLogin'   //venue login
 
 function App() {
   return (
-    <Login/>
-  )
+    <div className="App">
+      <header className="App-header">
+        <h1>Welcome to Seats4u</h1>
+      </header>
+      <main>
+        <Login/>
+        <CreateVenue />
+      </main>
+    </div>
+  );
 }
 
 export default App;
