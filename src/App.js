@@ -6,7 +6,7 @@ import CreateVenue from './controller/CreateVenue.js';
 import ReactDOM from "react-dom/client"
 // import { BrowserRouter, Routes, Route } from "react-router-dom" 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Login from './Pages/venueLogin'   //venue login
+import Login from './boundary/venueLogin.js'   //venue login
 // import Home from './Pages/Home'
 // import Layout from './Pages/Layout'
 
