@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import './CreateVenue.css'; // Ensure the path is correct
+import './CreateVenue.css'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateVenue = () => {
   // State for input fields (rows and columns for each section)
@@ -64,11 +66,6 @@ const CreateVenue = () => {
         {rowSeats}
       </div>
     );
-  
-  // move to the next row for the next iteration
-  
-
-
     layout.push(rowElement);
   }
 
@@ -78,6 +75,12 @@ const CreateVenue = () => {
     </div>
   );
 };
+
+const handleCreateShow = () => {
+  navigate("/createShow")
+}
+
+const navigate = useNavigate();
 
 
 
@@ -114,6 +117,7 @@ const CreateVenue = () => {
       ))}
       <div className="Note">
         <p>After entering all attributes and creating the venue, the login credentials will be presented on the screen.</p>
+        <button onClick={handleCreateShow}>Create Show (Test, should be entered after creating venue)</button>
       </div>
     </div>
   );
