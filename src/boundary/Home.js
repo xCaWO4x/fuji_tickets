@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
@@ -6,16 +7,22 @@ const Home = () => {
     //   // Logic goes here
     //   console.log('Logging in with:', venueID, credentials);
     // };
-  
+    const navigate = useNavigate() 
+
+    const handlevenueLogin = () => {
+      navigate('/venueLogin')
+    }
+
+    const handleadminLogin = () => {
+      navigate('/adminLogin')
+    }
     return (
       <div>
         <h2>Home Page</h2>
-        {/* <label>VenueID: </label>
-        <input type="venueID" value={venueID} onChange={(e) => setVenueID(e.target.value)} />
-        <label> Credentials: </label>
-        <input type="credentials" value={credentials} onChange={(e) => setCredentials(e.target.value)} />
-        <button onClick={handleLogin}>Login</button>
-        <button onClick={handleLogin}>Create Venue</button> */}
+        
+        <button onClick={handlevenueLogin}>Venue Login/Create</button>
+        {/* <button onClick={handleConsumer}>Consumer</button> */}
+        <button onClick={handleadminLogin}>Admin Login</button> 
       </div>
     )
   }
