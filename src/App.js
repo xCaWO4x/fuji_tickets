@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import CreateVenue from './controller/CreateVenue.js';
-
+import CreateShow from './controller/CreateShow.js';
 
 import ReactDOM from "react-dom/client"
 import { BrowserRouter, Routes, Route } from "react-router-dom" 
@@ -38,7 +38,7 @@ function App() {
           <Route path="/adminLogin" element={<AdminLogin/>} />
           <Route path="/createVenue" element={<CreateVenue/>} />
           <Route path="/adminPage" element={<AdminPage/>} />
-
+          <Route path="/createShow" element={<CreateShow/>} />
       </Routes>
 
    </BrowserRouter>
