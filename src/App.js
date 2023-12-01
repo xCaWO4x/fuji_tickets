@@ -4,16 +4,13 @@ import CreateVenue from './controller/CreateVenue.js';
 import CreateShow from './controller/CreateShow.js';
 
 import ReactDOM from "react-dom/client"
-import { BrowserRouter, Routes, Route } from "react-router-dom" 
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom" 
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Login from './boundary/venueLogin.js'   //venue login
 import AdminLogin from './boundary/adminLogin'
 import AdminPage from './boundary/adminPage'
 import Home from './boundary/Home.js'
 // import navbar from './components/navbar';
-
-// import Home from './Pages/Home'
-// import Layout from './Pages/Layout'
 
 // import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
@@ -23,7 +20,7 @@ function App() {
   return (
     <div className="App">
        
-      <BrowserRouter>
+      <HashRouter>
     
       {/* <nav>
           <Link to="/">Home</Link>
@@ -41,7 +38,7 @@ function App() {
           <Route path="/createShow" element={<CreateShow/>} />
       </Routes>
 
-   </BrowserRouter>
+   </HashRouter>
    </div>
   );
 }
