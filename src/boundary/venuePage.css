@@ -1,0 +1,32 @@
+.show-manager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.venue-header {
+  margin-bottom: 20px;
+}
+
+.shows-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.show {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.show-name {
+  margin-right: 10px;
+}
+
+.button {
+  margin-left: 5px;
+}

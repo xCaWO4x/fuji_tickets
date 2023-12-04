@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './CreateShow.css'; 
+import '../boundary/venuePage.js'
+import { useNavigate } from 'react-router-dom';
 
 const CreateShow = ({ venueSections }) => {
   // State for the show name, date, and time
@@ -17,12 +19,23 @@ const CreateShow = ({ venueSections }) => {
     }));
   };
 
+
+
+
   // Placeholder function for creating the show
   const createShow = () => {
     // Placeholder for now, this will be linked to the database later
     console.log('Show created with details:', showDetails, 'and venue sections:', venueSections);
     // Send this data to your backend server here
   };
+  
+    // handleVenuePage
+    const handleVenuePage = () => {
+      navigate("/venuePage")
+    }
+  
+
+  const navigate = useNavigate();
 
   return (
     <div className="CreateShow">
@@ -53,6 +66,8 @@ const CreateShow = ({ venueSections }) => {
         />
       </div>
       <button className="Create-button" onClick={createShow}>Create Show</button>
+      <button onClick={handleVenuePage}>Enter Venue (Test, should be entered after creating venue)</button>
+
       <div className="Seating-layout">
         {/* Render the seating layout passed as a prop */}
         {venueSections}

@@ -6,9 +6,15 @@ import CreateShow from './controller/CreateShow.js';
 import ReactDOM from "react-dom/client"
 import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom" 
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Login from './boundary/venueLogin.js'   //venue login
+
+import Login from './boundary/venueLogin.js';
+import VenuePage from './boundary/venuePage'; 
+
 import AdminLogin from './boundary/adminLogin'
 import AdminPage from './boundary/adminPage'
+
+import CustomerPage from './boundary/customerPage'
+
 import Home from './boundary/Home.js'
 // import navbar from './components/navbar';
 
@@ -36,6 +42,8 @@ function App() {
           <Route path="/createVenue" element={<CreateVenue/>} />
           <Route path="/adminPage" element={<AdminPage/>} />
           <Route path="/createShow" element={<CreateShow/>} />
+          <Route path="/venuePage" element={<VenuePage/>} />
+          <Route path="/customerPage" element={<CustomerPage/>} />
       </Routes>
 
    </HashRouter>

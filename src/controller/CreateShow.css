@@ -1,0 +1,15 @@
+.DateTime-section {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .DateTime-section label {
+    margin-right: 10px;
+  }
+  
+  .DateTime-section input {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
