@@ -14,6 +14,7 @@ import AdminLogin from './boundary/adminLogin'
 import AdminPage from './boundary/adminPage'
 
 import CustomerPage from './boundary/customerPage'
+import CustomerPurchase from './boundary/customerPurchase'
 
 import Home from './boundary/Home.js'
 // import navbar from './components/navbar';
@@ -44,6 +45,7 @@ function App() {
           <Route path="/createShow" element={<CreateShow/>} />
           <Route path="/venuePage" element={<VenuePage/>} />
           <Route path="/customerPage" element={<CustomerPage/>} />
+          <Route path="/customerPurchase" element={<CustomerPurchase/>} />
       </Routes>
 
    </HashRouter>
