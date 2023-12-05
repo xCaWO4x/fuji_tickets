@@ -10,6 +10,12 @@ const CustomerPage = () => {
     // more active shows...
   ];
 
+  const handleCustomerPurchase = () => {
+    navigate("/customerPurchase")
+  }
+
+  const navigate = useNavigate();
+
   return (
     <div className="customer-view">
       <div className="search-bar">
@@ -21,7 +27,7 @@ const CustomerPage = () => {
             <div className="show-cell show-name">{show.name}</div>
             <div className="show-cell seats-available">Seats: {show.seatsAvailable}</div>
             <div className="show-cell purchase-button-cell">
-              <button className="purchase-button">Purchase Tickets</button>
+              <button onClick={handleCustomerPurchase} className="purchase-button" >Purchase Tickets</button>
             </div>
           </div>
         ))}

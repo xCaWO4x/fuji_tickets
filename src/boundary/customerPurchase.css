@@ -1,0 +1,25 @@
+.CustomerPurchase {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .Seating-section {
+    /* Styling similar to CreateVenue, but ensure clickable seats have a visual cue */
+  }
+  
+  .Seat {
+    cursor: pointer; /* Indicates the seat is clickable */
+  }
+  
+  .Seat.selected {
+    background-color: #007bff; /* Color to indicate selection */
+    color: white;
+  }
+  
+  .Shopping-cart {
+    width: 300px; /* Adjust as needed */
+    /* Additional styling for the shopping cart */
+  }
+  
+  /* Add more styles as necessary to match your design */
+  
