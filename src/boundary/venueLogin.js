@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './venueLogin.css'
+import { CurrentPasswordContext } from '../App';
+
 const Login = () => {
     // const [venueID, setVenueID] = useState('');
     // const url = "https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class"
     const type = 'VenueManager'
-    const [credentials, setCredentials] = useState('')
-    var data = {type:type, credentials:credentials}
+    // const [credentials, setCredentials] = useState('')
+    const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
+    var data = {type:type, credentials:currentPassword}
     const navigate = useNavigate()
+    // console.log(currentPassword)
     
     const handleLogin = async () => {
         try {
@@ -27,10 +31,9 @@ const Login = () => {
     
           if (status === 400) {
             console.error('Authentication failed')
-            // console.log(answer)
           }
           else {
-            navigate('/createVenue')
+            navigate('/venuePage')
           }
         } 
         catch (error) {
@@ -47,7 +50,7 @@ const Login = () => {
       <div>
         <h2 className = "venueLoginHeader">Venue Manager Login</h2>
         <label className='venueText'>Password: </label>
-        <input className= 'inputBox' type="password" value={credentials} onChange={(e) => setCredentials(e.target.value)} />
+        <input className= 'inputBox' type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
         
         <button className = "venueLoginButton" type="submit" onClick={handleLogin}>Login</button>
         <button className = "venueCreateButton" onClick={handleCreateVenue}>Do not have a venue? Create venue</button>

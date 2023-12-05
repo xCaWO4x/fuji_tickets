@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreateVenue.css'; 
 import { useNavigate } from 'react-router-dom';
-
+import { CurrentPasswordContext } from '../App';
 
 const CreateVenue = () => {
   // State for input fields (rows and columns for each section)
@@ -10,39 +10,37 @@ const CreateVenue = () => {
     center: { rows: 4, columns: 3 },
     right: { rows: 4, columns: 3 }
   });
+  // Input for POST method
+
+  // var data = {name: venueName, section: sections}
 
   //Handler for creating venue
-   const handlecreateVenue = () => {
-    // const handleLogin = async () => {
-    //   try {
-    //     const response = await fetch('your-authentication-endpoint', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ username, password }),
-    //     });
-  
-    //     if (!response.ok) {
-    //       // Handle authentication error, e.g., show an error message to the user
-    //       console.error('Authentication failed');
-    //       return;
-    //     }
-  
-    //     // Assuming the server responds with a token upon successful authentication
-    //     const data = await response.json();
-    //     const authToken = data.token;
-  
-    //     // Now you can store the authToken in your application state or in a cookie
-    //     // Redirect the user or perform other actions as needed
-    //   } catch (error) {
-    //     console.error('Error during authentication:', error);
-    //   }
-    // };
-    //   // return null console.log('Authentication:', credentials)
-    //   // navigate("/venueLogin")
-   } 
-  
+   const handlecreateVenue = async () => {
+    return null
+  //   try {
+  //     let payload = {
+  //       method: 'POST',
+  //       mode: 'cors', 
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     }
+  //     console.log(payload)
+  //     const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/addVenue', payload);
+  //     const answer = await response.json();
+  //     const status = answer["statusCode"]
+
+  //     if (status === 400) {
+  //       console.error('Authentication failed')
+  //     } else {
+  //       navigate('/venuePage') //do we need to navigate after this?? Or display a message ?
+  //     }
+  //   } 
+  //   catch (error){
+  //     console.error('Error during authentication:', error)
+  //   }
+} 
   
   // Handler for section input changes
   const handleSectionInputChange = (sectionName, type, value) => {

@@ -11,6 +11,9 @@ const CreateShow = ({ venueSections }) => {
     time: ''
   });
 
+  // var data = {date: date, name: name,...}
+
+
   // Handler for input changes
   const handleInputChange = (type, value) => {
     setShowDetails(prevDetails => ({
@@ -67,7 +70,6 @@ const CreateShow = ({ venueSections }) => {
       </div>
       <button className="Create-button" onClick={createShow}>Create Show</button>
       <button onClick={handleVenuePage}>Enter Venue (Test, should be entered after creating venue)</button>
-
       <div className="Seating-layout">
         {/* Render the seating layout passed as a prop */}
         {venueSections}

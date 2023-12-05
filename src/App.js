@@ -2,9 +2,9 @@ import './App.css';
 import React from 'react';
 import CreateVenue from './controller/CreateVenue.js';
 import CreateShow from './controller/CreateShow.js';
-
+import { createContext, useContext, useState } from 'react';
 import ReactDOM from "react-dom/client"
-import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom" 
+import { HashRouter, Routes, Route } from "react-router-dom" 
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Login from './boundary/venueLogin.js';
@@ -20,12 +20,14 @@ import Home from './boundary/Home.js'
 
 // import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
-
+export const CurrentPasswordContext = createContext(null);
 
 function App() {
+  const [currentPassword, setCurrentPassword] = useState('');
+
   return (
     <div className="App">
-       
+      <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
       <HashRouter>
     
       {/* <nav>
@@ -47,8 +49,41 @@ function App() {
       </Routes>
 
    </HashRouter>
+   </CurrentPasswordContext.Provider>
    </div>
   );
 }
 
 export default App;
+
+
+
+
+  // const handleLogin = async () => {
+    //   try {
+    //     const response = await fetch('your-authentication-endpoint', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ username, password }),
+    //     });
+  
+    //     if (!response.ok) {
+    //       // Handle authentication error, e.g., show an error message to the user
+    //       console.error('Authentication failed');
+    //       return;
+    //     }
+  
+    //     // Assuming the server responds with a token upon successful authentication
+    //     const data = await response.json();
+    //     const authToken = data.token;
+  
+    //     // Now you can store the authToken in your application state or in a cookie
+    //     // Redirect the user or perform other actions as needed
+    //   } catch (error) {
+    //     console.error('Error during authentication:', error);
+    //   }
+    // };
+    //   // return null console.log('Authentication:', credentials)
+    //   // navigate("/venueLogin")

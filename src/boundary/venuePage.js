@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import './venuePage.css'; // Import CSS file for styling
 import { useNavigate } from 'react-router-dom';
+import { CurrentPasswordContext } from '../App';
 
 const VenuePage = () => {
   // Placeholder data for shows

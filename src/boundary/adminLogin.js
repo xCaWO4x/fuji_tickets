@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { CurrentPasswordContext } from '../App';
 
 const AdminLogin = () => {
     // const [adminId, setAdminID] = useState('');
     const type = 'Admin'
-    const [adminPassword, setAdminPassword] = useState('');
+    const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
     const navigate = useNavigate()
 
-    var data = {type:type, credentials:adminPassword}
+    var data = {type:type, credentials:currentPassword}
+   
   
     const handleAdminLogin = async () => {
         try {
@@ -27,8 +28,7 @@ const AdminLogin = () => {
 
           if(status===400){
             console.error('Authentication failed')
-          }
-          else {
+          } else {
             navigate('/adminPage')
           } 
         }
@@ -43,7 +43,7 @@ const AdminLogin = () => {
         {/* <input type="text" value={adminId} onChange={(e) => setAdminID(e.target.value)} /> */}
     
         <label className='adminText'>Password: </label>
-        <input type="password" value={adminPassword} onChange={(e) => setAdminPassword(e.target.value)} />
+        <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
         <button className = "adminLoginButton" onClick={handleAdminLogin}>Login</button>
       </div>
     
