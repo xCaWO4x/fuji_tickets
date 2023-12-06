@@ -4,23 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext } from '../App';
 
 const CreateVenue = () => {
-  // State for input fields (rows and columns for each section)
-  const [sections, setSections] = useState({
-    left: { rows: 4, columns: 3 },
-    center: { rows: 4, columns: 3 },
-    right: { rows: 4, columns: 3 }
-  });
+  const [venueName, setVenueName] = useState('');
+  const [credentials, setCredentials] = useState(''); // State for credentials
+  const [sections, setSections] = useState([
+    { sectionName: 'left', numRows: 0, numCol: 0 },
+    { sectionName: 'center', numRows: 0, numCol: 0 },
+    { sectionName: 'right', numRows: 0, numCol: 0 },
+  ]);
   // Input for POST method
- 
-  // const layout = [{
-  //   sectionName: "left", numRows: section.left.rows, numCols: sections.r
-  // }];
-  
-  // var data = {venueName: inputvenueName, password: somePassword, layout: layout};
+
+  // var data = {name: venueName, section: sections}
 
   //Handler for creating venue
    const handlecreateVenue = async () => {
+    const eventData = {
+      venueName,
+      credentials,
+      layout: sections,
+    };
     return null
+    // code to send eventData to backend
   //   try {
   //     let payload = {
   //       method: 'POST',
@@ -50,68 +53,66 @@ const CreateVenue = () => {
   
   // Handler for section input changes
   const handleSectionInputChange = (sectionName, type, value) => {
-    setSections(prevSections => ({
-      ...prevSections,
-      [sectionName]: {
-        ...prevSections[sectionName],
-        [type]: parseInt(value, 10)
+    setSections(prevSections => prevSections.map(section => {
+      if (section.sectionName === sectionName) {
+        return { ...section, [type]: parseInt(value, 10) };
       }
+      return section;
     }));
   };
 
   // Function to generate seating layout for all sections
   const generateSectionsLayout = () => {
-  const maxRows = Math.max(sections.left.rows, sections.center.rows, sections.right.rows);
-  const totalColumns = sections.left.columns + sections.center.columns + sections.right.columns;
-
-  let layout = [];
-  const sectionLabels = (
-    <div className="SectionLabels" key="section-labels">
-      {['left', 'center', 'right'].map(sectionName => (
-        <div className="SectionLabel" key={`${sectionName}-label`}>
-          {sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}
-        </div>
-      ))}
-    </div>
-  );
-  layout.push(sectionLabels);
-  for (let r = 0; r < maxRows; r++) {
-    let rowSeats = [];
-    let cumulativeColumns = 0;
+    const maxRows = Math.max(...sections.map(section => section.numRows));
   
-    for (let sectionName of ['left', 'center', 'right']) {
-      const section = sections[sectionName];
-      for (let c = 0; c < section.columns; c++) {
-        if (r < section.rows) {
-          const seatNum = String.fromCharCode('A'.charCodeAt(0) + r) + (c + 1);
-          rowSeats.push(
-            <div className="Seat" key={`${sectionName}-seat-${r}-${cumulativeColumns + c}`}>
-              {seatNum}
-            </div>
-          );
-        } else {
-          // Add placeholder for invisible seats
-          rowSeats.push(<div className="Seat Invisible" key={`${sectionName}-seat-${r}-${cumulativeColumns + c}`}></div>);
-        }
-      }
-      cumulativeColumns += section.columns;
-    }
-  
-    // Create a new row element for the current row of seats
-    const rowElement = (
-      <div className="Row" key={`row-${r}`}>
-        {rowSeats}
+    let layout = [];
+    const sectionLabels = (
+      <div className="SectionLabels" key="section-labels">
+        {sections.map(section => (
+          <div className="SectionLabel" key={`${section.sectionName}-label`}>
+            {section.sectionName.charAt(0).toUpperCase() + section.sectionName.slice(1)}
+          </div>
+        ))}
       </div>
     );
-    layout.push(rowElement);
-  }
-
-  return (
-    <div className="Seating-section">
-      {layout}
-    </div>
-  );
-};
+    layout.push(sectionLabels);
+  
+    for (let r = 0; r < maxRows; r++) {
+      let rowSeats = [];
+      for (let section of sections) {
+        for (let c = 0; c < section.numCol; c++) {
+          if (r < section.numRows) {
+            // Each section starts with A1, A2, etc.
+            const seatNum = String.fromCharCode('A'.charCodeAt(0) + r) + (c + 1);
+            rowSeats.push(
+              <div className={`Seat ${section.sectionName}`} key={`${section.sectionName}-seat-${r}-${c}`}>
+                {seatNum}
+              </div>
+            );
+          } else {
+            // Add placeholder for invisible seats
+            rowSeats.push(<div className={`Seat Invisible ${section.sectionName}`} key={`${section.sectionName}-seat-${r}-${c}`}></div>);
+          }
+        }
+      }
+  
+      // Create a new row element for the current row of seats
+      const rowElement = (
+        <div className="Row" key={`row-${r}`}>
+          {rowSeats}
+        </div>
+      );
+      layout.push(rowElement);
+    }
+  
+    return (
+      <div className="Seating-section">
+        {layout}
+      </div>
+    );
+  };
+  
+  
 
 const handleCreateShow = () => {
   navigate("/createShow")
@@ -140,15 +141,15 @@ const navigate = useNavigate();
             <label>{`${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)} Side - Input Row:`}</label>
             <input
               type="number"
-              value={sections[sectionName].rows}
-              onChange={(e) => handleSectionInputChange(sectionName, 'rows', e.target.value)}
+              value={sections.numRows}
+              onChange={(e) => handleSectionInputChange(sectionName, 'numRows', e.target.value)}
               className="Row-input"
             />
             <label>Input Column:</label>
             <input
               type="number"
-              value={sections[sectionName].columns}
-              onChange={(e) => handleSectionInputChange(sectionName, 'columns', e.target.value)}
+              value={sections.numCol}
+              onChange={(e) => handleSectionInputChange(sectionName, 'numCol', e.target.value)}
               className="Column-input"
             />
           </div>
