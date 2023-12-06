@@ -5,7 +5,7 @@ import { CurrentPasswordContext } from '../App';
 
 const VenuePage = () => {
   const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
-  // var data = {}
+  var data = {credentials: currentPassword}
   
   // Placeholder data for shows
   const shows = [
@@ -15,35 +15,35 @@ const VenuePage = () => {
   ];
 
   const post = async () => {
-    // try {
-    //   let payload = {
-    //     method: 'POST',
-    //     mode: 'cors', 
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data)
-    //   }
-    //   //console.log(payload)
-    //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/listShows', payload);
-    //   const answer = await response.json();
-    //   const status = answer["statusCode"]
-    //   const responseBody = answer["body"]
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }
+      //console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/listShows', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+      const responseBody = answer["body"]
 
-    //   if (status === 400) {
-    //     console.error('Error!')
-    //   } else {
-    //     console.log(answer)
-    //   }
-    // } 
-    // catch (error) {
-    //   console.error('Error during authentication:', error);
-    // }
+      if (status === 400) {
+        console.error('Error!')
+      } else {
+        console.log(answer)
+      }
+    } 
+    catch (error) {
+      console.error('Error during authentication:', error);
+    }
   }
 
-  // useEffect(() => {
-  //   post();
-  // }, [])
+  useEffect(() => {
+    post();
+  }, [])
 
 
 

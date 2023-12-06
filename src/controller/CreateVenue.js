@@ -13,42 +13,35 @@ const CreateVenue = () => {
   ]);
   // Input for POST method
 
-  // var data = {name: venueName, section: sections}
+  var data = {name: venueName, credentials: credentials, layouts: sections}
 
   //Handler for creating venue
    const handlecreateVenue = async () => {
-    const eventData = {
-      venueName,
-      credentials,
-      layout: sections,
-    };
-    return null
-    // code to send eventData to backend
-  //   try {
-  //     let payload = {
-  //       method: 'POST',
-  //       mode: 'cors', 
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(data),
-  //     }
-  //     console.log(payload)
-  //     const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/addVenue', payload);
-  //     const answer = await response.json();
-  //     const status = answer["statusCode"]
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+      console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/addVenue', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
 
-  //     if (status === 400) {
-  //       console.error('Authentication failed')
-  //       alert('Venue Already Exists')
-  //     } else {
-  //       navigate('/venuePage') //do we need to navigate after this?? Or display a message ?
-  //       console.log('Venue has been created')
-  //     }
-  //   } 
-  //   catch (error){
-  //     console.error('Error during authentication:', error)
-  //   }
+      if (status === 400) {
+        console.error('Input error')
+        alert('Venue Already Exists')
+      } else {
+        navigate('/venuePage') //do we need to navigate after this?? Or display a message ?
+        console.log('Venue has been created')
+      }
+    } 
+    catch (error){
+      console.error('Error during authentication:', error)
+    }
 } 
   
   // Handler for section input changes
@@ -126,9 +119,13 @@ const navigate = useNavigate();
     <div className="CreateVenue">
       <div className="Venue-name-section">
         <label>Venue name:</label>
-        <input type="text" placeholder="Enter venue name" className="Venue-input" />
+        <input type="text" value = {venueName} 
+          onChange={(e) => setVenueName(e.target.value)}
+          placeholder="Enter venue name" className="Venue-input" />
         {/* This password input label is temporary. We will change to jwt? token for the next iteration */}
-        <input type="text" placeholder="Choose a Password" className="Venue-input" />
+        <input type="text" value = {credentials} 
+          onChange={(e) => setCredentials(e.target.value)}
+          placeholder="Choose a Password" className="Venue-input" />
         <button className="Create-button" onClick={handlecreateVenue}>Create Venue</button>    
       </div>
       <div className="Stage">Stage</div>
