@@ -28,6 +28,7 @@ const AdminLogin = () => {
 
           if(status===400){
             console.error('Authentication failed')
+            alert("Wrong password. Try again!")
           } else {
             navigate('/adminPage')
           } 

@@ -11,8 +11,12 @@ const CreateVenue = () => {
     right: { rows: 4, columns: 3 }
   });
   // Input for POST method
-
-  // var data = {name: venueName, section: sections}
+ 
+  // const layout = [{
+  //   sectionName: "left", numRows: section.left.rows, numCols: sections.r
+  // }];
+  
+  // var data = {venueName: inputvenueName, password: somePassword, layout: layout};
 
   //Handler for creating venue
    const handlecreateVenue = async () => {
@@ -33,8 +37,10 @@ const CreateVenue = () => {
 
   //     if (status === 400) {
   //       console.error('Authentication failed')
+  //       alert('Venue Already Exists')
   //     } else {
   //       navigate('/venuePage') //do we need to navigate after this?? Or display a message ?
+  //       console.log('Venue has been created')
   //     }
   //   } 
   //   catch (error){

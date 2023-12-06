@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import './CreateShow.css'; 
 import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
+import { CurrentPasswordContext } from '../App';
 
 const CreateShow = ({ venueSections }) => {
   // State for the show name, date, and time
@@ -9,8 +10,9 @@ const CreateShow = ({ venueSections }) => {
     name: '',
     date: '',
     time: ''
-  });
+  }); 
 
+  // var data is what information that client to send to the sever (FETCH API)
   // var data = {date: date, name: name,...}
 
 
@@ -26,7 +28,32 @@ const CreateShow = ({ venueSections }) => {
 
 
   // Placeholder function for creating the show
-  const createShow = () => {
+  const createShow = async () => {
+    // try {
+    //   let payload = {
+    //     method: 'POST',
+    //     mode: 'cors', 
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(data),
+    //   }
+    //   console.log(payload)
+    //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createShow', payload);
+    //   const answer = await response.json();
+    //   const status = answer["statusCode"]
+      
+    //   if (status === 400) {
+    //     console.error('Authentication failed')
+    //   } else {
+    //     // navigate('/venuePage')   //do we need to navigate after this?? Or display a message ?
+    //     console.log("Show has been created!")
+    //   }
+    // } 
+    // catch (error){
+    //   console.error('Error during authentication:', error)
+    // }
+   
     // Placeholder for now, this will be linked to the database later
     console.log('Show created with details:', showDetails, 'and venue sections:', venueSections);
     // Send this data to your backend server here
