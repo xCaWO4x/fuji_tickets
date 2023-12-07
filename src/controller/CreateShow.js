@@ -48,11 +48,10 @@ const CreateShow = ({ venueSections }) => {
       const status = answer["statusCode"]
       
       if (status === 400) {
-        console.error('Authentication failed')
-        navigate("/venuePage")
+        console.error('Authentication failed') 
+        navigate("/venuePage") // not supposed to go back yet but let it go back for now
 
       } else {
-        // navigate('/venuePage')   //do we need to navigate after this?? Or display a message ?
         console.log("Show has been created!")
         navigate("/venuePage")
       }

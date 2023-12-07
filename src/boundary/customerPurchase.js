@@ -4,11 +4,47 @@ import { useNavigate } from 'react-router-dom';
 
 const CustomerPurchase = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [price, setPrice] = useState(10); // Price per seat (placeholder)
+
   const [sections, setSections] = useState([
     { sectionName: 'left', numRows: 3, numCol: 3 },
     { sectionName: 'center', numRows: 3, numCol: 3 },
     { sectionName: 'right', numRows: 3, numCol: 3 },
   ]);
+
+  var data = {seats: selectedSeats}
+
+  const calculateTotalCost = () => {
+    return selectedSeats.length * price;
+  };
+
+  const handlePurchase = async () => {
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+      console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/purchaseSeats', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+
+      if (status === 400) {
+        console.error('Invalid Selection')
+        alert('Seat(s) already selected or show has passed.')
+      } else {
+        navigate('/customerPage')
+        console.log('Seat(s) have been purchased')
+      }
+    }
+    catch (error) {
+      console.error('Error during authentication:', error)
+    }
+  }
 
   const selectSeat = (seatId) => {
     setSelectedSeats((prevSelectedSeats) => {
@@ -89,6 +125,10 @@ const CustomerPurchase = () => {
             <li key={seatId}>{seatId}</li>
           ))}
         </ul>
+        <div className="Total-cost">
+          <span>Total Cost: ${calculateTotalCost()}</span>
+          <button onClick={handlePurchase}>Check Out</button>
+        </div>
       </div>
     </div>
   );
