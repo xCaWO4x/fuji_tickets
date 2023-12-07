@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect} from 'react';
-import './venuePage.css'; // Import CSS file for styling
+import './venuePage.css';
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext } from '../App';
-import CreateShow from '../controller/CreateShow';
+import { CurrentPasswordContext, CurrentVenueContext } from '../App'; // Import contexts from App
 
 const VenuePage = () => {
-  const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
+  const { currentPassword } = useContext(CurrentPasswordContext);
+  const { currentVenue } = useContext(CurrentVenueContext);
+
   var data = {credentials: currentPassword}
   
   // Placeholder data for shows
@@ -14,7 +15,8 @@ const VenuePage = () => {
     { id: 2, name: "Show 2" },
     // Add more shows as needed
   ];
-
+  
+  // change the payload to venueID
   const post = async () => {
     try {
       let payload = {
@@ -44,7 +46,7 @@ const VenuePage = () => {
 
   useEffect(() => {
     post();
-  }, [])
+  }, [currentPassword, currentVenue])
 
   const handleCreateShow = () => {
     navigate("/createShow")
@@ -57,7 +59,7 @@ const VenuePage = () => {
   return (
     <div className="show-manager">
       <div className="venue-header">
-        <h2>{venueName}</h2>
+      <h2>{currentVenue}</h2> {/* Display the current venue name */}
       </div>
       <div className="shows-list">
         {shows.map((show) => (

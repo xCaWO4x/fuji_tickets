@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './CreateVenue.css'; 
 import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext } from '../App';
+import { CurrentVenueContext } from '../App';
 
 const CreateVenue = () => {
   const [venueName, setVenueName] = useState('');
@@ -11,6 +12,9 @@ const CreateVenue = () => {
     { sectionName: 'center', numRows: 0, numCol: 0 },
     { sectionName: 'right', numRows: 0, numCol: 0 },
   ]);
+
+  const { setCurrentPassword } = React.useContext(CurrentPasswordContext);
+  const { setCurrentVenue } = React.useContext(CurrentVenueContext);
   // Input for POST method
 
   var data = {name: venueName, credentials: credentials, layouts: sections}
@@ -35,8 +39,10 @@ const CreateVenue = () => {
         console.error('Input error')
         alert('Venue Already Exists')
       } else {
-        navigate('/venuePage') //do we need to navigate after this?? Or display a message ?
+        navigate('/venuePage') 
         console.log('Venue has been created')
+        setCurrentPassword(credentials)
+        setCurrentVenue(venueName)
       }
     } 
     catch (error){

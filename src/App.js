@@ -22,37 +22,42 @@ import Home from './boundary/Home.js'
 // import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
 export const CurrentPasswordContext = createContext(null);
+export const CurrentVenueContext = createContext(null);
 
 function App() {
   const [currentPassword, setCurrentPassword] = useState('');
+  const [currentVenue, setCurrentVenue] = useState('');
 
   return (
     <div className="App">
       <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
-      <HashRouter>
-    
-      {/* <nav>
-          <Link to="/">Home</Link>
-          <Link to="/venueLogin">Venue Login/Create</Link>
-          <Link to="/adminLogin">Admin Login</Link>
-      </nav> */}
+      <CurrentVenueContext.Provider value={{currentVenue, setCurrentVenue}}>
+        <HashRouter>
+      
+        {/* <nav>
+            <Link to="/">Home</Link>
+            <Link to="/venueLogin">Venue Login/Create</Link>
+            <Link to="/adminLogin">Admin Login</Link>
+        </nav> */}
 
-      {/* <navbar />    */}
-      <Routes>
-          <Route path="/" element = {<Home />} />
-          <Route path="/venueLogin" element={<Login/>} />
-          <Route path="/adminLogin" element={<AdminLogin/>} />
-          <Route path="/createVenue" element={<CreateVenue/>} />
-          <Route path="/adminPage" element={<AdminPage/>} />
-          <Route path="/createShow" element={<CreateShow/>} />
-          <Route path="/venuePage" element={<VenuePage/>} />
-          <Route path="/customerPage" element={<CustomerPage/>} />
-          <Route path="/customerPurchase" element={<CustomerPurchase/>} />
-      </Routes>
+        {/* <navbar />    */}
+        <Routes>
+            <Route path="/" element = {<Home />} />
+            <Route path="/venueLogin" element={<Login/>} />
+            <Route path="/adminLogin" element={<AdminLogin/>} />
+            <Route path="/createVenue" element={<CreateVenue/>} />
+            <Route path="/adminPage" element={<AdminPage/>} />
+            <Route path="/createShow" element={<CreateShow/>} />
+            <Route path="/venuePage" element={<VenuePage/>} />
+            <Route path="/customerPage" element={<CustomerPage/>} />
+            <Route path="/customerPurchase" element={<CustomerPurchase/>} />
+        </Routes>
 
-   </HashRouter>
-   </CurrentPasswordContext.Provider>
-   </div>
+        </HashRouter>
+      </CurrentVenueContext.Provider>
+      </CurrentPasswordContext.Provider>
+      
+      </div>
   );
 }
 

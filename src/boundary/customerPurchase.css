@@ -56,5 +56,10 @@
     background-color: #f0f0f0; /* Example background for list items */
   }
   
+  .Seat.purchased {
+    background-color: #343a40; /* Dark color for purchased seats */
+    color: #ccc;
+    cursor: not-allowed; /* Change cursor to indicate not clickable */
+  }
   /* If you need responsive design, consider adding media queries */
   

@@ -1,26 +1,17 @@
-import React, { useState, useContext} from 'react';
+import React, { useState } from 'react';
 import './CreateShow.css'; 
-import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext } from '../App';
 
 const CreateShow = ({ venueSections }) => {
-  // State for the show name, date, and time
   const [showDetails, setShowDetails] = useState({
     name: '',
-    date: '',
-    time: ''
+    venueName: '',
+    startDate: ''
   }); 
-
   const [price, setPrice] = useState('');
 
-  var data = {name: showDetails.name, date: showDetails.date, time: showDetails.time, price: price}
+  const navigate = useNavigate();
 
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-
-  // Handler for input changes
   const handleInputChange = (type, value) => {
     setShowDetails(prevDetails => ({
       ...prevDetails,
@@ -28,46 +19,21 @@ const CreateShow = ({ venueSections }) => {
     }));
   };
 
-
-
-
-  // Placeholder function for creating the show
-  const createShow = async () => {
-    try {
-      let payload = {
-        method: 'POST',
-        mode: 'cors', 
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-      console.log(payload)
-      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createShow', payload);
-      const answer = await response.json();
-      const status = answer["statusCode"]
-      
-      if (status === 400) {
-        console.error('Authentication failed') 
-        navigate("/venuePage") // not supposed to go back yet but let it go back for now
-
-      } else {
-        console.log("Show has been created!")
-        navigate("/venuePage")
-      }
-    } 
-    catch (error){
-      console.error('Error during authentication:', error)
-    }
-   
-    // Placeholder for now, this will be linked to the database later
-    console.log('Show created with details:', showDetails, 'and venue sections:', venueSections);
-    // Send this data to your backend server here
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
   };
-  
-  
 
-  const navigate = useNavigate();
+  const createShow = async () => {
+    // Assume combining date and time into a single ISO string for startDate
+    var data = {
+      name: showDetails.name,
+      venueName: showDetails.venueName,
+      startDate: showDetails.startDate,
+      price: parseFloat(price).toFixed(2)
+    }
+    // Rest of the createShow function remains the same
+    // ...
+  };
 
   return (
     <div className="CreateShow">
@@ -81,20 +47,23 @@ const CreateShow = ({ venueSections }) => {
           className="Show-input"
         />
       </div>
-      <div className="DateTime-section">
-        <label>Date:</label>
+      <div className="Venue-name-section">
+        <label>Venue name:</label>
         <input
-          type="date"
-          value={showDetails.date}
-          onChange={(e) => handleInputChange('date', e.target.value)}
-          className="Date-input"
+          type="text"
+          placeholder="Enter venue name"
+          value={showDetails.venueName}
+          onChange={(e) => handleInputChange('venueName', e.target.value)}
+          className="Venue-input"
         />
-        <label>Time:</label>
+      </div>
+      <div className="DateTime-section">
+        <label>Date and Time:</label>
         <input
-          type="time"
-          value={showDetails.time}
-          onChange={(e) => handleInputChange('time', e.target.value)}
-          className="Time-input"
+          type="datetime-local"
+          value={showDetails.startDate}
+          onChange={(e) => handleInputChange('startDate', e.target.value)}
+          className="DateTime-input"
         />
       </div>
       <div className="Price-section">

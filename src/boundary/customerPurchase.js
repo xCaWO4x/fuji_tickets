@@ -12,6 +12,8 @@ const CustomerPurchase = () => {
     { sectionName: 'right', numRows: 3, numCol: 3 },
   ]);
 
+  const [purchasedSeats, setPurchasedSeats] = useState([]); // Placeholder for purchased seats
+
   var data = {seats: selectedSeats}
 
   const calculateTotalCost = () => {
@@ -47,6 +49,10 @@ const CustomerPurchase = () => {
   }
 
   const selectSeat = (seatId) => {
+    if (purchasedSeats.includes(seatId)) {
+      // Do nothing if the seat is purchased
+      return;
+    }
     setSelectedSeats((prevSelectedSeats) => {
       if (prevSelectedSeats.includes(seatId)) {
         // If already selected, remove from the array
@@ -82,12 +88,12 @@ const CustomerPurchase = () => {
             // Change here: Convert row number to letter (A, B, C, ...)
             const rowLetter = String.fromCharCode('A'.charCodeAt(0) + r);
             const seatId = `${section.sectionName[0].toUpperCase()}${rowLetter}${c + 1}`;
-    
+            const isPurchased = purchasedSeats.includes(seatId);
             rowSeats.push(
               <div
-                className={`Seat ${selectedSeats.includes(seatId) ? 'selected' : ''}`}
+                className={`Seat ${selectedSeats.includes(seatId) ? 'selected' : ''} ${isPurchased ? 'purchased' : ''}`}
                 key={seatId}
-                onClick={() => selectSeat(seatId)}
+                onClick={!isPurchased ? () => selectSeat(seatId) : undefined}
               >
                 {seatId}
               </div>
