@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 const CustomerPurchase = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [sections, setSections] = useState({
-    left: { rows: 4, columns: 3 },
-    center: { rows: 4, columns: 3 },
-    right: { rows: 4, columns: 3 }
-  });
+  const [sections, setSections] = useState([
+    { sectionName: 'left', numRows: 3, numCol: 3 },
+    { sectionName: 'center', numRows: 3, numCol: 3 },
+    { sectionName: 'right', numRows: 3, numCol: 3 },
+  ]);
 
   const selectSeat = (seatId) => {
     setSelectedSeats((prevSelectedSeats) => {
@@ -21,44 +21,46 @@ const CustomerPurchase = () => {
       }
     });
   };
-  
 
   // Function to generate seating layout for all sections
   const generateSectionsLayout = () => {
-    const maxRows = Math.max(sections.left.rows, sections.center.rows, sections.right.rows);
-    const totalColumns = sections.left.columns + sections.center.columns + sections.right.columns;
+    const maxRows = Math.max(...sections.map(section => section.numRows));
 
     let layout = [];
     const sectionLabels = (
       <div className="SectionLabels" key="section-labels">
-        {['left', 'center', 'right'].map(sectionName => (
-          <div className="SectionLabel" key={`${sectionName}-label`}>
-            {sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}
+        {sections.map(section => (
+          <div className="SectionLabel" key={`${section.sectionName}-label`}>
+            {section.sectionName.charAt(0).toUpperCase() + section.sectionName.slice(1)}
           </div>
         ))}
       </div>
     );
     layout.push(sectionLabels);
+
     for (let r = 0; r < maxRows; r++) {
       let rowSeats = [];
-      let cumulativeColumns = 0;
+      for (let section of sections) {
+        for (let c = 0; c < section.numCol; c++) {
+          if (r < section.numRows) {
+            // Change here: Convert row number to letter (A, B, C, ...)
+            const rowLetter = String.fromCharCode('A'.charCodeAt(0) + r);
+            const seatId = `${section.sectionName[0].toUpperCase()}${rowLetter}${c + 1}`;
     
-      for (let sectionName of ['left', 'center', 'right']) {
-        const section = sections[sectionName];
-        for (let c = 0; c < section.columns; c++) {
-          if (r < section.rows) {
-            const seatNum = String.fromCharCode('A'.charCodeAt(0) + r) + (c + 1);
             rowSeats.push(
-              <div className="Seat" key={`${sectionName}-seat-${r}-${cumulativeColumns + c}`}>
-                {seatNum}
+              <div
+                className={`Seat ${selectedSeats.includes(seatId) ? 'selected' : ''}`}
+                key={seatId}
+                onClick={() => selectSeat(seatId)}
+              >
+                {seatId}
               </div>
             );
           } else {
             // Add placeholder for invisible seats
-            rowSeats.push(<div className="Seat Invisible" key={`${sectionName}-seat-${r}-${cumulativeColumns + c}`}></div>);
+            rowSeats.push(<div className="Seat Invisible" key={`${section.sectionName}-seat-${r}-${c}`}></div>);
           }
         }
-        cumulativeColumns += section.columns;
       }
     
       // Create a new row element for the current row of seats
@@ -70,45 +72,15 @@ const CustomerPurchase = () => {
       layout.push(rowElement);
     }
 
+    return layout;
+  };
 
+  const navigate = useNavigate();
 
   return (
-    <div className="Seating-section">
-      {layout}
-    </div>
-  );
-};
-
-const navigate = useNavigate();
-
-return (
     <div className="CustomerPurchase">
       <div className="Seating-section">
-        {Object.keys(sections).map(sectionName => {
-          const section = sections[sectionName];
-          return (
-            <div key={sectionName} className="SectionRow">
-              {Array.from({ length: section.rows }, (_, rowIndex) => {
-                return (
-                  <div className="Row" key={`${sectionName}-row-${rowIndex}`}>
-                    {Array.from({ length: section.columns }, (_, columnIndex) => {
-                      const seatId = `${sectionName[0].toUpperCase()}${rowIndex + 1}${columnIndex + 1}`;
-                      return (
-                        <div
-                          key={seatId}
-                          className={`Seat ${selectedSeats.includes(seatId) ? 'selected' : ''}`}
-                          onClick={() => selectSeat(seatId)}
-                        >
-                          {seatId}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+        {generateSectionsLayout()}
       </div>
       <div className="Shopping-cart">
         <h3>Shopping Cart</h3>
@@ -120,7 +92,6 @@ return (
       </div>
     </div>
   );
-  
 };
 
 export default CustomerPurchase;

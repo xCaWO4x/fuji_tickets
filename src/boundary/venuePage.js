@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect} from 'react';
 import './venuePage.css'; // Import CSS file for styling
 import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext } from '../App';
+import CreateShow from '../controller/CreateShow';
 
 const VenuePage = () => {
   const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
@@ -45,7 +46,9 @@ const VenuePage = () => {
     post();
   }, [])
 
-
+  const handleCreateShow = () => {
+    navigate("/createShow")
+  }
 
   const venueName = "Venue Name"; // Placeholder for venue name
 
@@ -66,7 +69,7 @@ const VenuePage = () => {
           </div>
         ))}
       </div>
-      <button className="create-show-button">Create Show</button>
+      <button onClick={handleCreateShow}>Create Show</button>
     </div>
   );
 };

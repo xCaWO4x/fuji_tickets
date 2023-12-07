@@ -154,7 +154,6 @@ const navigate = useNavigate();
       ))}
       <div className="Note">
         <p>After entering all attributes and creating the venue, the login credentials will be presented on the screen.</p>
-        <button onClick={handleCreateShow}>Create Show (Test, should be entered after creating venue)</button>
       </div>
     </div>
   );
