@@ -1,25 +1,60 @@
+/* CustomerPurchase.css */
 .CustomerPurchase {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 20px;
   }
   
   .Seating-section {
-    /* Styling similar to CreateVenue, but ensure clickable seats have a visual cue */
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
   }
   
   .Seat {
-    cursor: pointer; /* Indicates the seat is clickable */
+    padding: 5px;
+    margin: 2px;
+    border: 1px solid #000;
+    width: 30px;
+    text-align: center;
+    cursor: pointer; /* Makes the seat look clickable */
+    transition: background-color 0.3s; /* Smooth transition for background color */
   }
   
+  /* Style when a seat is selected */
   .Seat.selected {
-    background-color: #007bff; /* Color to indicate selection */
+    background-color: #007bff; /* Example selected color */
     color: white;
   }
   
   .Shopping-cart {
-    width: 300px; /* Adjust as needed */
-    /* Additional styling for the shopping cart */
+    width: 300px;
+    margin-left: 20px; /* Separation from the seating section */
+    border: 1px solid #ccc; /* Example border, you can adjust as needed */
+    padding: 10px;
   }
   
-  /* Add more styles as necessary to match your design */
+  .Shopping-cart h3 {
+    margin-bottom: 10px;
+  }
+  
+  .Shopping-cart ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .Shopping-cart li {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f0f0f0; /* Example background for list items */
+  }
+  
+  /* If you need responsive design, consider adding media queries */
   
