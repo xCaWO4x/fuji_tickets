@@ -12,9 +12,13 @@ const CreateShow = ({ venueSections }) => {
     time: ''
   }); 
 
-  // var data is what information that client to send to the sever (FETCH API)
-  // var data = {date: date, name: name,...}
+  const [price, setPrice] = useState('');
 
+  var data = {name: showDetails.name, date: showDetails.date, time: showDetails.time, price: price}
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
 
   // Handler for input changes
   const handleInputChange = (type, value) => {
@@ -29,40 +33,39 @@ const CreateShow = ({ venueSections }) => {
 
   // Placeholder function for creating the show
   const createShow = async () => {
-    // try {
-    //   let payload = {
-    //     method: 'POST',
-    //     mode: 'cors', 
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   }
-    //   console.log(payload)
-    //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createShow', payload);
-    //   const answer = await response.json();
-    //   const status = answer["statusCode"]
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }
+      console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createShow', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
       
-    //   if (status === 400) {
-    //     console.error('Authentication failed')
-    //   } else {
-    //     // navigate('/venuePage')   //do we need to navigate after this?? Or display a message ?
-    //     console.log("Show has been created!")
-    //   }
-    // } 
-    // catch (error){
-    //   console.error('Error during authentication:', error)
-    // }
+      if (status === 400) {
+        console.error('Authentication failed')
+        navigate("/venuePage")
+
+      } else {
+        // navigate('/venuePage')   //do we need to navigate after this?? Or display a message ?
+        console.log("Show has been created!")
+        navigate("/venuePage")
+      }
+    } 
+    catch (error){
+      console.error('Error during authentication:', error)
+    }
    
     // Placeholder for now, this will be linked to the database later
     console.log('Show created with details:', showDetails, 'and venue sections:', venueSections);
     // Send this data to your backend server here
   };
   
-    // handleVenuePage
-    const handleVenuePage = () => {
-      navigate("/venuePage")
-    }
   
 
   const navigate = useNavigate();
@@ -95,8 +98,17 @@ const CreateShow = ({ venueSections }) => {
           className="Time-input"
         />
       </div>
+      <div className="Price-section">
+        <label>Price per seat:</label>
+        <input
+          type="number"
+          placeholder="Enter price"
+          value={price}
+          onChange={handlePriceChange}
+          className="Price-input"
+        />
+      </div>
       <button className="Create-button" onClick={createShow}>Create Show</button>
-      <button onClick={handleVenuePage}>Enter Venue (Test, should be entered after creating venue)</button>
       <div className="Seating-layout">
         {/* Render the seating layout passed as a prop */}
         {venueSections}
