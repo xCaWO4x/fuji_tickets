@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import CreateVenue from './controller/CreateVenue.js';
 import CreateShow from './controller/CreateShow.js';
+import CreateShowsReport from './controller/CreateShowReports.js';
 import { createContext, useContext, useState } from 'react';
 import ReactDOM from "react-dom/client"
 import { HashRouter, Routes, Route } from "react-router-dom" 
@@ -51,6 +52,7 @@ function App() {
             <Route path="/venuePage" element={<VenuePage/>} />
             <Route path="/customerPage" element={<CustomerPage/>} />
             <Route path="/customerPurchase" element={<CustomerPurchase/>} />
+            <Route path="/report" element={<CreateShowsReport />} />
         </Routes>
 
         </HashRouter>

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect} from 'react';
 import './venuePage.css';
 import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext, CurrentVenueContext } from '../App'; // Import contexts from App
+import CreateShowReports from '../controller/CreateShowReports';
 
 const VenuePage = () => {
   const { currentPassword } = useContext(CurrentPasswordContext);
@@ -54,6 +55,10 @@ const VenuePage = () => {
 
   const venueName = "Venue Name"; // Placeholder for venue name
 
+  const handleGenerateReportClick = () => {
+    navigate("/report"); // Navigate to the CreateShowsReport component
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -72,6 +77,8 @@ const VenuePage = () => {
         ))}
       </div>
       <button onClick={handleCreateShow}>Create Show</button>
+      <button onClick={handleGenerateReportClick} className="button">Generate Show Report</button>
+
     </div>
   );
 };
