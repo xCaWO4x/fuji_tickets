@@ -31,8 +31,7 @@ const Login = () => {
     
           if (status === 400) {
             console.error('Authentication failed')
-          }
-          else {
+          } else {
             navigate('/venuePage')
           }
         } 

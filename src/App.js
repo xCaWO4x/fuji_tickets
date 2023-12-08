@@ -22,13 +22,16 @@ import Home from './boundary/Home.js'
 // import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
 export const CurrentPasswordContext = createContext(null);
+export const CurrentVenueIDContext = createContext(null);
 
 function App() {
   const [currentPassword, setCurrentPassword] = useState('');
+  const [currentVenueID, setCurrentVenueID] = useState('');
 
   return (
     <div className="App">
       <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
+      <CurrentVenueIDContext.Provider value={{currentVenueID, setCurrentVenueID}}>
       <HashRouter>
     
       {/* <nav>
@@ -51,6 +54,7 @@ function App() {
       </Routes>
 
    </HashRouter>
+   </CurrentVenueIDContext.Provider>
    </CurrentPasswordContext.Provider>
    </div>
   );

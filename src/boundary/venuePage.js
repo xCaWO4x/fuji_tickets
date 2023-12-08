@@ -1,13 +1,16 @@
 import React, { useState, useContext, useEffect} from 'react';
 import './venuePage.css'; // Import CSS file for styling
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext } from '../App';
+import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
 import CreateShow from '../controller/CreateShow';
 
 const VenuePage = () => {
-  const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
-  var data = {credentials: currentPassword}
-  
+  // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
+  const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+
+
+  var data = {venueID: currentVenueID}
+  console.log(data);
   // Placeholder data for shows
   const shows = [
     { id: 1, name: "Show 1" },
@@ -32,6 +35,7 @@ const VenuePage = () => {
       const responseBody = answer["body"]
 
       if (status === 400) {
+        // console.log(answer);
         console.error('Error!')
       } else {
         console.log(answer)

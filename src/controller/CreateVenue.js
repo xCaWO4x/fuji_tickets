@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import './CreateVenue.css'; 
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext } from '../App';
+import { CurrentVenueIDContext } from '../App';
 
 const CreateVenue = () => {
   const [venueName, setVenueName] = useState('');
   const [credentials, setCredentials] = useState(''); // State for credentials
+  const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+
+
   const [sections, setSections] = useState([
     { sectionName: 'left', numRows: 0, numCol: 0 },
     { sectionName: 'center', numRows: 0, numCol: 0 },
@@ -30,6 +33,8 @@ const CreateVenue = () => {
       const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/addVenue', payload);
       const answer = await response.json();
       const status = answer["statusCode"]
+      setCurrentVenueID(answer["data"])
+      console.log(answer)
 
       if (status === 400) {
         console.error('Input error')
