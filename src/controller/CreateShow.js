@@ -16,7 +16,7 @@ const CreateShow = ({ venueSections }) => {
   const [price, setPrice] = useState('');
   const navigate = useNavigate();
 
-  var data = {name: showDetails.name, venueID: currentVenueID, startDate:showDetails.startDate, price: parseFloat(price).toFixed(2)}
+  var data = {name: showDetails.name, venueID: currentVenueID.venueID, startDate:showDetails.startDate, price: parseFloat(price).toFixed(2)}
 
   const handleInputChange = (type, value) => {
     setShowDetails(prevDetails => ({

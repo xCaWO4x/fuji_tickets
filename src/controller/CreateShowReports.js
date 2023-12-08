@@ -7,7 +7,7 @@ const CreateShowReports = () => {
   const [shows, setShows] = useState([]); // State to store shows data
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
 
-  var data = {venueID: currentVenueID}
+  var data = {venueID: currentVenueID.venueID}
   useEffect(() => {
     // Perform the API call when the component mounts
     fetchShowsData();
