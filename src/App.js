@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import CreateVenue from './controller/CreateVenue.js';
 import CreateShow from './controller/CreateShow.js';
+import CreateShowsReport from './controller/CreateShowReports.js';
 import { createContext, useContext, useState } from 'react';
 import ReactDOM from "react-dom/client"
 import { HashRouter, Routes, Route } from "react-router-dom" 
@@ -23,7 +24,6 @@ import Home from './boundary/Home.js'
 
 export const CurrentPasswordContext = createContext(null);
 export const CurrentVenueIDContext = createContext(null);
-
 function App() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [currentVenueID, setCurrentVenueID] = useState('');
@@ -32,6 +32,7 @@ function App() {
     <div className="App">
       <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
       <CurrentVenueIDContext.Provider value={{currentVenueID, setCurrentVenueID}}>
+
       <HashRouter>
     
       {/* <nav>
@@ -40,18 +41,19 @@ function App() {
           <Link to="/adminLogin">Admin Login</Link>
       </nav> */}
 
-      {/* <navbar />    */}
-      <Routes>
-          <Route path="/" element = {<Home />} />
-          <Route path="/venueLogin" element={<Login/>} />
-          <Route path="/adminLogin" element={<AdminLogin/>} />
-          <Route path="/createVenue" element={<CreateVenue/>} />
-          <Route path="/adminPage" element={<AdminPage/>} />
-          <Route path="/createShow" element={<CreateShow/>} />
-          <Route path="/venuePage" element={<VenuePage/>} />
-          <Route path="/customerPage" element={<CustomerPage/>} />
-          <Route path="/customerPurchase" element={<CustomerPurchase/>} />
-      </Routes>
+        {/* <navbar />    */}
+        <Routes>
+            <Route path="/" element = {<Home />} />
+            <Route path="/venueLogin" element={<Login/>} />
+            <Route path="/adminLogin" element={<AdminLogin/>} />
+            <Route path="/createVenue" element={<CreateVenue/>} />
+            <Route path="/adminPage" element={<AdminPage/>} />
+            <Route path="/createShow" element={<CreateShow/>} />
+            <Route path="/venuePage" element={<VenuePage/>} />
+            <Route path="/customerPage" element={<CustomerPage/>} />
+            <Route path="/customerPurchase" element={<CustomerPurchase/>} />
+            <Route path="/report" element={<CreateShowsReport />} />
+        </Routes>
 
    </HashRouter>
    </CurrentVenueIDContext.Provider>

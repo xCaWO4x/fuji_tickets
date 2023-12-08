@@ -1,23 +1,26 @@
 import React, { useState, useContext, useEffect} from 'react';
-import './venuePage.css'; // Import CSS file for styling
+import './venuePage.css';
 import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
+import CreateShowReports from '../controller/CreateShowReports';
 import CreateShow from '../controller/CreateShow';
 
 const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
-
-
   var data = {venueID: currentVenueID}
   console.log(data);
+
+  // var data = {credentials: currentPassword}
+  
   // Placeholder data for shows
   const shows = [
     { id: 1, name: "Show 1" },
     { id: 2, name: "Show 2" },
     // Add more shows as needed
   ];
-
+  
+  // change the payload to venueID
   const post = async () => {
     try {
       let payload = {
@@ -48,7 +51,7 @@ const VenuePage = () => {
 
   useEffect(() => {
     post();
-  }, [])
+  }, [currentPassword, currentVenue])
 
   const handleCreateShow = () => {
     navigate("/createShow")
@@ -56,12 +59,16 @@ const VenuePage = () => {
 
   const venueName = "Venue Name"; // Placeholder for venue name
 
+  const handleGenerateReportClick = () => {
+    navigate("/report"); // Navigate to the CreateShowsReport component
+  };
+
   const navigate = useNavigate();
 
   return (
     <div className="show-manager">
       <div className="venue-header">
-        <h2>{venueName}</h2>
+      <h2>{currentVenue}</h2> {/* Display the current venue name */}
       </div>
       <div className="shows-list">
         {shows.map((show) => (
@@ -74,6 +81,8 @@ const VenuePage = () => {
         ))}
       </div>
       <button onClick={handleCreateShow}>Create Show</button>
+      <button onClick={handleGenerateReportClick} className="button">Generate Show Report</button>
+
     </div>
   );
 };
