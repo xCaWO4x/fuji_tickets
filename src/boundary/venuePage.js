@@ -8,6 +8,8 @@ import CreateShow from '../controller/CreateShow';
 const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+  const [shows, setShows] = useState([]);
+
   var data = {venueID: currentVenueID}
   // how to get show name from database
   // var deleteShowName = {name: shows.name}
@@ -17,12 +19,7 @@ const VenuePage = () => {
   // var data = {credentials: currentPassword}
   // Placeholder data for shows
 
-  // get shows from API
-  const shows = [
-    { id: 1, name: "Show 1" },
-    { id: 2, name: "Show 2" },
-    // Add more shows as needed
-  ];
+  
   
   // change the payload to venueID
   const post = async () => {
@@ -45,6 +42,7 @@ const VenuePage = () => {
         // console.log(answer);
         console.error(responseBody)
       } else {
+        setShows(responseBody)
         console.log(answer)
       }
     } 
@@ -132,7 +130,7 @@ const VenuePage = () => {
       </div>
       <div className="shows-list">
         {shows.map((show) => (
-          <div key={show.id} className="show">
+          <div key={show.showID} className="show">
             <span className="show-name">{show.name}</span>
             <button onClick ={handleDeleteShow} className="button">Delete Show</button>
             <button className="button">Manage Blocks</button>
