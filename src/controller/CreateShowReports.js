@@ -1,22 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './CreateShowReports.css'; // Make sure to create this CSS file
+import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
+
 
 const CreateShowReports = () => {
   const [shows, setShows] = useState([]); // State to store shows data
+  const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
 
+  var data = {venueID: currentVenueID}
   useEffect(() => {
     // Perform the API call when the component mounts
     fetchShowsData();
   }, []);
 
   const fetchShowsData = async () => {
-    const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/generateShowReport');
-    const data = await response.json();
-    if (data.statusCode === 200) {
-      setShows(data.body); // Update the state with the fetched shows data
-    } else {
-      // Handle any errors or unsuccessful responses here
-      console.error('Failed to fetch shows data');
+    // const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/generateShowReport');
+    // const data = await response.json();
+    // if (data.statusCode === 200) {
+    //   setShows(data.body); // Update the state with the fetched shows data
+    // } else {
+    //   // Handle any errors or unsuccessful responses here
+    //   console.error('Failed to fetch shows data');
+    // }
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }
+      //console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/generateShowReports', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+      const responseBody = answer["data"]
+
+      if (status === 400) {
+        console.error(responseBody)
+
+      } else {
+        console.log(responseBody)
+      }
+    } 
+    catch (error) {
+      console.error('Error during authentication:', error);
     }
   };
 

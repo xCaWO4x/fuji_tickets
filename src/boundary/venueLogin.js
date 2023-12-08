@@ -1,7 +1,7 @@
 import React, { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './venueLogin.css'
-import { CurrentPasswordContext } from '../App';
+import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
 
 const Login = () => {
     // const [venueID, setVenueID] = useState('');
@@ -9,6 +9,8 @@ const Login = () => {
     const type = 'VenueManager'
     // const [credentials, setCredentials] = useState('')
     const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
+    const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+
     var data = {type:type, credentials:currentPassword}
     const navigate = useNavigate()
     // console.log(currentPassword)
@@ -27,12 +29,15 @@ const Login = () => {
           const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/login', payload);
           const answer = await response.json();
           const status = answer["statusCode"]
-          // const responseBody = answer["body"]
+          const responseBody = answer["data"]
     
           if (status === 400) {
-            console.error('Authentication failed')
+            console.error(responseBody)
+            console.log(answer)
+            console.log(data);
           } else {
             navigate('/venuePage')
+            setCurrentVenueID(responseBody)
           }
         } 
         catch (error) {

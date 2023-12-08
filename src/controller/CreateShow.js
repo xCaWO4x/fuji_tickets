@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import './CreateShow.css'; 
+import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
+import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
 
 const CreateShow = ({ venueSections }) => {
+  
   const [showDetails, setShowDetails] = useState({
     name: '',
     venueName: '',
     startDate: ''
   }); 
-  const [price, setPrice] = useState('');
 
+  const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+  const [price, setPrice] = useState('');
   const navigate = useNavigate();
+
+  var data = {name: showDetails.name, venueID: currentVenueID, startDate:showDetails.startDate, price: parseFloat(price).toFixed(2)}
 
   const handleInputChange = (type, value) => {
     setShowDetails(prevDetails => ({
@@ -24,15 +30,30 @@ const CreateShow = ({ venueSections }) => {
   };
 
   const createShow = async () => {
-    // Assume combining date and time into a single ISO string for startDate
-    var data = {
-      name: showDetails.name,
-      venueName: showDetails.venueName,
-      startDate: showDetails.startDate,
-      price: parseFloat(price).toFixed(2)
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }
+      //console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createShow', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+      const responseBody = answer["data"]
+
+      if (status === 400) {
+        console.error(responseBody)
+      } else {
+        console.log(answer)
+      }
+    } 
+    catch (error) {
+      console.error('Error during authentication:', error);
     }
-    // Rest of the createShow function remains the same
-    // ...
   };
 
   return (

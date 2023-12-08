@@ -17,8 +17,8 @@ const CreateVenue = () => {
     { sectionName: 'right', numRows: 0, numCol: 0 },
   ]);
 
-  const { setCurrentPassword } = React.useContext(CurrentPasswordContext);
-  const { setCurrentVenue } = React.useContext(CurrentVenueContext);
+  // const { setCurrentPassword } = React.useContext(CurrentPasswordContext);
+  // const { setCurrentVenue } = React.useContext(CurrentVenueContext);
   // Input for POST method
 
   var data = {name: venueName, credentials: credentials, layouts: sections}
@@ -47,8 +47,8 @@ const CreateVenue = () => {
       } else {
         navigate('/venuePage') 
         console.log('Venue has been created')
-        setCurrentPassword(credentials)
-        setCurrentVenue(venueName)
+        // setCurrentPassword(credentials)
+        // setCurrentVenue(venueName)
       }
     } 
     catch (error){

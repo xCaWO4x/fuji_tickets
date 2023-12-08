@@ -9,11 +9,15 @@ const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
   var data = {venueID: currentVenueID}
+  // how to get show name from database
+  // var deleteShowName = {name: shows.name}
+  
   console.log(data);
 
   // var data = {credentials: currentPassword}
-  
   // Placeholder data for shows
+
+  // get shows from API
   const shows = [
     { id: 1, name: "Show 1" },
     { id: 2, name: "Show 2" },
@@ -35,11 +39,11 @@ const VenuePage = () => {
       const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/listShows', payload);
       const answer = await response.json();
       const status = answer["statusCode"]
-      const responseBody = answer["body"]
+      const responseBody = answer["data"]
 
       if (status === 400) {
         // console.log(answer);
-        console.error('Error!')
+        console.error(responseBody)
       } else {
         console.log(answer)
       }
@@ -51,11 +55,67 @@ const VenuePage = () => {
 
   useEffect(() => {
     post();
-  }, [currentPassword, currentVenue])
+  }, [])
 
   const handleCreateShow = () => {
     navigate("/createShow")
   }
+
+
+
+  const handleDeleteShow = async () => {
+    // try {
+    //   let payload = {
+    //     method: 'POST',
+    //     mode: 'cors', 
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(deleteShowName)
+    //   }
+    //   //console.log(payload)
+    //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/deleteShow', payload);
+    //   const answer = await response.json();
+    //   const status = answer["statusCode"]
+    //   const responseBody = answer["data"]
+
+    //   if (status === 400) {
+    //     console.error(responseBody)
+    //   } else {
+    //     console.log(answer)
+    //   }
+    // } 
+    // catch (error) {
+    //   console.error('Error during authentication:', error);
+    // }
+  }
+
+  const handleActivateShow = () =>{
+    // try {
+      //   let payload = {
+      //     method: 'POST',
+      //     mode: 'cors', 
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(deleteShowName)
+      //   }
+      //   //console.log(payload)
+      //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/activateShow', payload);
+      //   const answer = await response.json();
+      //   const status = answer["statusCode"]
+      //   const responseBody = answer["data"]
+  
+      //   if (status === 400) {
+      //     console.error(responseBody)
+      //   } else {
+      //     console.log(answer)
+      //   }
+      // } 
+      // catch (error) {
+      //   console.error('Error during authentication:', error);
+      // }
+  }  
 
   const venueName = "Venue Name"; // Placeholder for venue name
 
@@ -68,15 +128,15 @@ const VenuePage = () => {
   return (
     <div className="show-manager">
       <div className="venue-header">
-      <h2>{currentVenue}</h2> {/* Display the current venue name */}
+      <h2>Display current venueName</h2> {/* Display the current venue name */}
       </div>
       <div className="shows-list">
         {shows.map((show) => (
           <div key={show.id} className="show">
             <span className="show-name">{show.name}</span>
-            <button className="button">Delete Show</button>
+            <button onClick ={handleDeleteShow} className="button">Delete Show</button>
             <button className="button">Manage Blocks</button>
-            <button className="button">Activate</button>
+            <button onClick = {handleActivateShow} className="button">Activate</button>
           </div>
         ))}
       </div>
