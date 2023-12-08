@@ -56,7 +56,7 @@ const AdminPage = () => {
   };
     return (
     <div className="AdminPage">
-      <h1>Venue List</h1>
+      <h1>Venue List</h1>  
       {venues.map((venue, index) => (
         <div key={index} className="venue-item">
           <span>{venue.name}</span>
