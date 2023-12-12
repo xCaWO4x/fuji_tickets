@@ -9,6 +9,7 @@ const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
   const [shows, setShows] = useState([]);
+  // var id = {showID: show.showID}
 
   var data = {venueID: currentVenueID.venueID}
   console.log(data)
@@ -48,7 +49,7 @@ const VenuePage = () => {
         console.error(responseBody)
       } else {
         setShows(responseBody)
-        console.log(answer)
+        console.log(responseBody)
       }
     } 
     catch (error) {
@@ -93,31 +94,32 @@ const VenuePage = () => {
     // }
   }
 
-  const handleActivateShow = () =>{
-    // try {
-      //   let payload = {
-      //     method: 'POST',
-      //     mode: 'cors', 
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(deleteShowName)
-      //   }
-      //   //console.log(payload)
-      //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/activateShow', payload);
-      //   const answer = await response.json();
-      //   const status = answer["statusCode"]
-      //   const responseBody = answer["data"]
+  // var data = {showID: id}
+  const handleActivateShow = async (event) =>{
+    try {
+        let payload = {
+          method: 'POST',
+          mode: 'cors', 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({showID: event.target.className})
+        }
+        //console.log(payload)
+        const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/activateShow', payload);
+        const answer = await response.json();
+        const status = answer["statusCode"]
+        const responseBody = answer["data"]
   
-      //   if (status === 400) {
-      //     console.error(responseBody)
-      //   } else {
-      //     console.log(answer)
-      //   }
-      // } 
-      // catch (error) {
-      //   console.error('Error during authentication:', error);
-      // }
+        if (status === 400) {
+          console.error(responseBody)
+        } else {
+          console.log(answer)
+        }
+      } 
+      catch (error) {
+        console.error('Error during authentication:', error);
+      }
   }  
 
   const venueName = "Venue Name"; // Placeholder for venue name
@@ -139,7 +141,7 @@ const VenuePage = () => {
             <span className="show-name">{show.name}</span>
             <button onClick ={handleDeleteShow} className="button">Delete Show</button>
             <button className="button">Manage Blocks</button>
-            <button onClick = {handleActivateShow} className="button">Activate</button>
+            <button onClick = {handleActivateShow} className={show.showID}>Activate</button>
           </div>
         ))}
       </div>

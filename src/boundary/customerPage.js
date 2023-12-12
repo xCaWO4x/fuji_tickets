@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useContext} from 'react';
 import './customerPage.css'; // Make sure to create this CSS file
 import { useNavigate } from 'react-router-dom';
 
@@ -9,6 +10,40 @@ const CustomerPage = () => {
     { id: 2, name: "Active Show 2", seatsAvailable: 85 },
     // more active shows...
   ];
+  const [searchShow, setSearchShow] = useState('');
+  console.log(searchShow)
+  var data = {searchString: searchShow}
+  
+  const handleSearchShow = async () => {
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      }
+      //console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/searchShows', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+      const responseBody = answer["data"]
+
+      if (status === 400) {
+        // console.log(answer);
+        console.error(responseBody)
+      } else {
+        // setShows(responseBody)
+        console.log(answer)
+        console.log(responseBody)
+      }
+    } 
+    catch (error) {
+      console.error('Error during authentication:', error);
+    }
+  }
+
 
   const handleCustomerPurchase = () => {
     navigate("/customerPurchase")
@@ -19,7 +54,9 @@ const CustomerPage = () => {
   return (
     <div className="customer-view">
       <div className="search-bar">
-        <input type="text" placeholder="Search Shows..." />
+        <input type="text" value={searchShow} placeholder="Search Shows..." onChange={(e) => setSearchShow(e.target.value)}/>
+        {/* need to fix button for searchShow */}
+        <button onClick={handleSearchShow} className="purchase-button" >Search</button> 
       </div>
       <div className="shows-table">
         {activeShows.map((show) => (
