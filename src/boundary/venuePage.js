@@ -65,33 +65,33 @@ const VenuePage = () => {
     navigate("/createShow")
   }
 
+  const handleDeleteShow = async (event) => {
+    try {
+      let payload = {
+        method: 'POST',
+        mode: 'cors', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({showID: event.target.className})
+      }
+      // console.log(payload)
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/deleteShow', payload);
+      const answer = await response.json();
+      const status = answer["statusCode"]
+      const responseBody = answer["data"]
 
+      if (status === 400) {
+        console.error(responseBody)
+      } else {
+        console.log(responseBody)
+        post()
 
-  const handleDeleteShow = async () => {
-    // try {
-    //   let payload = {
-    //     method: 'POST',
-    //     mode: 'cors', 
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(deleteShowName)
-    //   }
-    //   //console.log(payload)
-    //   const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/deleteShow', payload);
-    //   const answer = await response.json();
-    //   const status = answer["statusCode"]
-    //   const responseBody = answer["data"]
-
-    //   if (status === 400) {
-    //     console.error(responseBody)
-    //   } else {
-    //     console.log(answer)
-    //   }
-    // } 
-    // catch (error) {
-    //   console.error('Error during authentication:', error);
-    // }
+      }
+    } 
+    catch (error) {
+      console.error('Error during authentication:', error);
+    }
   }
 
   // var data = {showID: id}
@@ -106,15 +106,15 @@ const VenuePage = () => {
           body: JSON.stringify({showID: event.target.className})
         }
         //console.log(payload)
+        // console.log(event.target)
         const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/activateShow', payload);
         const answer = await response.json();
         const status = answer["statusCode"]
         const responseBody = answer["data"]
-  
         if (status === 400) {
           console.error(responseBody)
         } else {
-          console.log(answer)
+          console.log(responseBody)
         }
       } 
       catch (error) {
@@ -139,7 +139,7 @@ const VenuePage = () => {
         {shows.map((show) => (
           <div key={show.showID} className="show">
             <span className="show-name">{show.name}</span>
-            <button onClick ={handleDeleteShow} className="button">Delete Show</button>
+            <button onClick ={handleDeleteShow} className={show.showID}>Delete Show</button>
             <button className="button">Manage Blocks</button>
             <button onClick = {handleActivateShow} className={show.showID}>Activate</button>
           </div>
