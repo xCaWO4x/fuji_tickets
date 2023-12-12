@@ -42,6 +42,7 @@ const CreateShowReports = () => {
 
       } else {
         console.log(responseBody)
+        setShows(answer.data)
       }
     } 
     catch (error) {
@@ -49,27 +50,19 @@ const CreateShowReports = () => {
     }
   };
 
-  // Placeholder for the actual API data
-  const placeholderData = [
-    { id: 1, name: "Show Name 1", status: "Active", blockPrices: "10, 15, 20", seatsSold: 69, seatsRemaining: 21, totalRevenue: 8760 },
-    { id: 2, name: "Show Name 2", status: "Inactive", blockPrices: "10, 15, 20", seatsSold: 0, seatsRemaining: 100, totalRevenue: 0 },
-    // Add more placeholder data as needed
-  ];
-
   return (
     <div className="show-report-container">
       <h1>Show Report</h1>
-      {placeholderData.map(show => ( // Replace placeholderData with shows once API is integrated
-        <div key={show.id} className="show-report-card">
+      {shows.map(show => (
+        <div key={show.showID} className="show-report-card">
           <div className="show-report-header">
             <h2>{show.name}</h2>
-            <span className="show-report-status">{show.status}</span>
+            <span className="show-report-status">{show.active ? 'Active' : 'Inactive'}</span>
           </div>
           <div className="show-report-details">
-            <p>Block Prices: ${show.blockPrices}</p>
-            <p>Seats Sold: {show.seatsSold}</p>
-            <p>Seats Remaining: {show.seatsRemaining}</p>
-            <p>Total Revenue: ${show.totalRevenue.toLocaleString()}</p>
+            {/* Render the actual show details here */}
+            {/* Example: <p>Seats Sold: {show.seatsSold}</p> */}
+            {/* Add more details as per your API response */}
           </div>
         </div>
       ))}

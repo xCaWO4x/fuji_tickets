@@ -49,6 +49,7 @@ const CreateShow = ({ venueSections }) => {
         console.error(responseBody)
       } else {
         console.log(answer)
+        navigate('/venuePage')
       }
     } 
     catch (error) {

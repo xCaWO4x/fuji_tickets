@@ -10,13 +10,9 @@ const VenuePage = () => {
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
   const [shows, setShows] = useState([]);
 
-<<<<<<< HEAD
   var data = {venueID: currentVenueID.venueID}
   console.log(data)
   // const [showList, setShowList] = useState([]);
-=======
-  var data = {venueID: currentVenueID}
->>>>>>> 9b3f2194078477c8f277936dc82b1248c7f60bef
   // how to get show name from database
   // var deleteShowName = {name: shows.name}
   // console.log(currentVenueID)
@@ -26,12 +22,8 @@ const VenuePage = () => {
   // var data = {credentials: currentPassword}
   // Placeholder data for shows
 
-<<<<<<< HEAD
   // get shows from API
 
-=======
-  
->>>>>>> 9b3f2194078477c8f277936dc82b1248c7f60bef
   
 
   // change the payload to venueID
