@@ -5,13 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 const CustomerPage = () => {
  // Placeholder data for active shows with available seats
- const activeShows = [
-    { id: 1, name: "Active Show 1", seatsAvailable: 120 },
-    { id: 2, name: "Active Show 2", seatsAvailable: 85 },
-    // more active shows...
-  ];
+//  const activeShows = [
+//     { id: 1, name: "Active Show 1", seatsAvailable: 120 },
+//     { id: 2, name: "Active Show 2", seatsAvailable: 85 },
+//     // more active shows...
+//   ];
+
+  const [activeShows, setActiveShows] = useState([]); 
   const [searchShow, setSearchShow] = useState('');
-  console.log(searchShow)
+  // console.log(searchShow)
   var data = {searchString: searchShow}
   
   const handleSearchShow = async () => {
@@ -36,7 +38,7 @@ const CustomerPage = () => {
       } else {
         // setShows(responseBody)
         console.log(answer)
-        console.log(responseBody)
+        setActiveShows(responseBody)
       }
     } 
     catch (error) {
@@ -60,9 +62,10 @@ const CustomerPage = () => {
       </div>
       <div className="shows-table">
         {activeShows.map((show) => (
-          <div key={show.id} className="show-row">
+          <div key={show.showID} className="show-row"> 
             <div className="show-cell show-name">{show.name}</div>
-            <div className="show-cell seats-available">Seats: {show.seatsAvailable}</div>
+            {/* what is seatAvailable in our data schema?  */}
+            <div className="show-cell seats-available">Seats: {show.numSeats}</div>
             <div className="show-cell purchase-button-cell">
               <button onClick={handleCustomerPurchase} className="purchase-button" >Purchase Tickets</button>
             </div>
