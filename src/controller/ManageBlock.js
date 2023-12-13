@@ -7,8 +7,11 @@ import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } f
 
 const ManageBlock = () => {
 
+    const { currentShowID } = useContext(CurrentShowIDContext);
+
     const [blockDetails, setBlockDetails] = useState({
         name: '',
+        showID: currentShowID,
         price: '',
         startRow: '',
         startCol: '',
@@ -18,8 +21,6 @@ const ManageBlock = () => {
         endSection: ''
     });
 
-    const { currentShowID, setCurrentShowID } = useContext(CurrentShowIDContext);
-
     const handleBlockDetailChange = (type, value) => {
         setBlockDetails(prevDetails => ({
         ...prevDetails,
@@ -28,30 +29,18 @@ const ManageBlock = () => {
     };
 
     const createBlock = async () => {
-        let blockPayload = {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            name: blockDetails.name,
-            showID: currentShowID, 
-            price: blockDetails.price,
-            startRow: blockDetails.startRow,
-            startCol: blockDetails.startCol,
-            endRow: blockDetails.endRow,
-            endCol: blockDetails.endCol,
-            startSection: blockDetails.startSection,
-            endSection: blockDetails.endSection
-        })
-        };
-        try {
         let payload = {
             method: 'POST',
             mode: 'cors', 
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify(blockPayload)
+            body: JSON.stringify({
+                ...blockDetails,
+            })
         }
+        try {
+        
         //console.log(payload)
         const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/createBlock', payload);
         const answer = await response.json();
@@ -60,6 +49,7 @@ const ManageBlock = () => {
 
         if (status === 400) {
             console.error(responseBody)
+            console.log(payload)
         } else {
             console.log(answer)
         }
