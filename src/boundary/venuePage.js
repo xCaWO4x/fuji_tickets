@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect} from 'react';
 import './venuePage.css';
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
+import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } from '../App';
 import CreateShowReports from '../controller/CreateShowReports';
 import CreateShow from '../controller/CreateShow';
 import ManageBlock from '../controller/ManageBlock';
@@ -9,6 +9,8 @@ import ManageBlock from '../controller/ManageBlock';
 const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+  const {currentShowID, setCurrentShowID} = useContext(CurrentShowIDContext);
+
   const [shows, setShows] = useState([]);
   // var id = {showID: show.showID}
 
@@ -66,9 +68,10 @@ const VenuePage = () => {
     navigate("/createShow")
   }
 
-  const handleManageBlocks = () => {
-    navigate("/manageBlocks")
-  }
+  const handleManageBlocks = (showID) => {
+    setCurrentShowID(showID); 
+    navigate("/manageBlocks"); 
+};
 
   const handleDeleteShow = async (event) => {
     try {
@@ -145,7 +148,7 @@ const VenuePage = () => {
           <div key={show.showID} className="show">
             <span className="show-name">{show.name}</span>
             <button onClick={handleDeleteShow} className={show.showID}>Delete Show</button>
-            <button onClick={handleManageBlocks}>Manage Blocks</button>
+            <button onClick={() => handleManageBlocks(show.showID)}>Manage Blocks</button>
             <button onClick={handleActivateShow} className={show.showID}>Activate</button>
           </div>
         ))}

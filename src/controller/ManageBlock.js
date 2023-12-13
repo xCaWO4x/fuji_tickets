@@ -7,11 +7,10 @@ import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } f
 
 const ManageBlock = () => {
 
-    const { currentShowID } = useContext(CurrentShowIDContext);
+    const { currentShowID, setCurrentShwoID } = useContext(CurrentShowIDContext);
 
     const [blockDetails, setBlockDetails] = useState({
         name: '',
-        showID: currentShowID,
         price: '',
         startRow: '',
         startCol: '',
@@ -29,6 +28,7 @@ const ManageBlock = () => {
     };
 
     const createBlock = async () => {
+        
         let payload = {
             method: 'POST',
             mode: 'cors', 
@@ -37,6 +37,7 @@ const ManageBlock = () => {
             },
             body: JSON.stringify({
                 ...blockDetails,
+                showID: currentShowID
             })
         }
         try {
