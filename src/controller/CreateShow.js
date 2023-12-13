@@ -2,7 +2,7 @@ import React, { useState, useContext} from 'react';
 import './CreateShow.css'; 
 import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
+import { CurrentPasswordContext, CurrentVenueIDContext } from '../App';
 
 const CreateShow = ({ venueSections }) => {
   
@@ -12,7 +12,8 @@ const CreateShow = ({ venueSections }) => {
     startDate: ''
   }); 
 
-  const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
+  const { currentVenueID, setCurrentVenueID } = useContext(CurrentVenueIDContext);
+
   const [price, setPrice] = useState('');
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const CreateShow = ({ venueSections }) => {
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
-
+  
   const createShow = async () => {
     try {
       let payload = {
@@ -55,7 +56,7 @@ const CreateShow = ({ venueSections }) => {
     catch (error) {
       console.error('Error during authentication:', error);
     }
-  };
+  };  
 
   return (
     <div className="CreateShow">
@@ -103,6 +104,7 @@ const CreateShow = ({ venueSections }) => {
         {/* Render the seating layout passed as a prop */}
         {venueSections}
       </div>
+      
     </div>
   );
 };

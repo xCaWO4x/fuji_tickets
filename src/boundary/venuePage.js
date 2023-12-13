@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext, CurrentVenueIDContext} from '../App';
 import CreateShowReports from '../controller/CreateShowReports';
 import CreateShow from '../controller/CreateShow';
+import ManageBlock from '../controller/ManageBlock';
 
 const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
@@ -63,6 +64,10 @@ const VenuePage = () => {
 
   const handleCreateShow = () => {
     navigate("/createShow")
+  }
+
+  const handleManageBlocks = () => {
+    navigate("/manageBlocks")
   }
 
   const handleDeleteShow = async (event) => {
@@ -139,9 +144,9 @@ const VenuePage = () => {
         {shows.map((show) => (
           <div key={show.showID} className="show">
             <span className="show-name">{show.name}</span>
-            <button onClick ={handleDeleteShow} className={show.showID}>Delete Show</button>
-            <button className="button">Manage Blocks</button>
-            <button onClick = {handleActivateShow} className={show.showID}>Activate</button>
+            <button onClick={handleDeleteShow} className={show.showID}>Delete Show</button>
+            <button onClick={handleManageBlocks}>Manage Blocks</button>
+            <button onClick={handleActivateShow} className={show.showID}>Activate</button>
           </div>
         ))}
       </div>

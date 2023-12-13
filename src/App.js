@@ -10,6 +10,7 @@ import { HashRouter, Routes, Route } from "react-router-dom"
 
 import Login from './boundary/venueLogin.js';
 import VenuePage from './boundary/venuePage'; 
+import ManageBlock from './controller/ManageBlock.js';
 
 import AdminLogin from './boundary/adminLogin'
 import AdminPage from './boundary/adminPage'
@@ -24,14 +25,20 @@ import Home from './boundary/Home.js'
 
 export const CurrentPasswordContext = createContext(null);
 export const CurrentVenueIDContext = createContext(null);
+export const CurrentShowIDContext = createContext(null);
+
+
 function App() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [currentVenueID, setCurrentVenueID] = useState('');
+  const [currentShowID, setCurrentShowID] = useState('');
 
   return (
     <div className="App">
       <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
       <CurrentVenueIDContext.Provider value={{currentVenueID, setCurrentVenueID}}>
+      <CurrentShowIDContext.Provider value={{ currentShowID, setCurrentShowID }}>
+  {/* Your routes and components */}
 
       <HashRouter>
     
@@ -53,9 +60,11 @@ function App() {
             <Route path="/customerPage" element={<CustomerPage/>} />
             <Route path="/customerPurchase" element={<CustomerPurchase/>} />
             <Route path="/report" element={<CreateShowsReport />} />
+            <Route path="/manageBlocks" element={<ManageBlock />} />
         </Routes>
 
    </HashRouter>
+   </CurrentShowIDContext.Provider>
    </CurrentVenueIDContext.Provider>
    </CurrentPasswordContext.Provider>
    </div>

@@ -62,7 +62,7 @@ const CreateShowReports = () => {
           <div className="show-report-details">
             {/* Render the actual show details here */}
             {/* Example: <p>Seats Sold: {show.seatsSold}</p> */}
-            {/* Add more details as per your API response */}
+            {/* Add more details as per the API response */}
           </div>
         </div>
       ))}
