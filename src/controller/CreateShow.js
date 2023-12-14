@@ -70,16 +70,7 @@ const CreateShow = ({ venueSections }) => {
           className="Show-input"
         />
       </div>
-      <div className="Venue-name-section">
-        <label>Venue name:</label>
-        <input
-          type="text"
-          placeholder="Enter venue name"
-          value={showDetails.venueName}
-          onChange={(e) => handleInputChange('venueName', e.target.value)}
-          className="Venue-input"
-        />
-      </div>
+      
       <div className="DateTime-section">
         <label>Date and Time:</label>
         <input

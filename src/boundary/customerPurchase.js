@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './customerPurchase.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,15 +7,20 @@ const CustomerPurchase = () => {
   const [price, setPrice] = useState(10); // Price per seat (placeholder)
 
   const [sections, setSections] = useState([
-    { sectionName: 'left', numRows: 3, numCol: 3 },
-    { sectionName: 'center', numRows: 3, numCol: 3 },
-    { sectionName: 'right', numRows: 3, numCol: 3 },
+    { sectionName: 'left', numRows: 0, numCol: 0 },
+    { sectionName: 'center', numRows: 0, numCol: 0 },
+    { sectionName: 'right', numRows: 0, numCol: 0 },
   ]);
 
   const [purchasedSeats, setPurchasedSeats] = useState([]); // Placeholder for purchased seats
 
   var data = {seats: selectedSeats}
 
+  useEffect(() => {
+    // Fetch venue layout or use passed props
+    setSections(venueLayout || []);
+  }, [venueLayout]);
+  
   const calculateTotalCost = () => {
     return selectedSeats.length * price;
   };

@@ -7,7 +7,7 @@ import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } f
 
 const ManageBlock = () => {
 
-    const { currentShowID, setCurrentShwoID } = useContext(CurrentShowIDContext);
+    const { currentShowID, setCurrentShowID } = useContext(CurrentShowIDContext);
 
     const [blockDetails, setBlockDetails] = useState({
         name: '',
