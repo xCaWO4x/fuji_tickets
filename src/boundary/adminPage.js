@@ -72,7 +72,6 @@ const AdminPage = () => {
           <span>{venue.name}</span>
           <button onClick={() => handleViewVenue(venue)}>View Venue</button>
           <button onClick={() => handleDeleteVenue(venue.venueID)}>Delete Venue</button>
-
         </div>
       ))}
     </div>
