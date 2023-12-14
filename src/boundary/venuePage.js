@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } from '../App';
 import CreateShowReports from '../controller/CreateShowReports';
 import CreateShow from '../controller/CreateShow';
-import ManageBlock from '../controller/ManageBlock';
+import ManageBlock from '../controller/ManageBlock'; 
 
 const VenuePage = () => {
   // const {currentPassword, setCurrentPassword} = useContext(CurrentPasswordContext);
