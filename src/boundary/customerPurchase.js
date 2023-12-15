@@ -29,36 +29,50 @@ const CustomerPurchase = () => {
   }, [showName]);
 
   const fetchAvailableSeats = async () => {
-    if (!showName) {
-      console.error("Show name is undefined, cannot fetch seats");
-      return;
-    }
+  
     try {
       const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/showAvailableSeats', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(showName),
+        body: JSON.stringify(showName), // Assuming the API expects a showId in the body
       });
-      const data = await response.json();
-      console.log(data);
-      console.log(data.seats);
-      console.log("Request payload:", JSON.stringify(showName));
-      if (response.status === 200) {
-        if (data && Array.isArray(data.seats)) {
-          setPurchasedSeats(data.seats.map(seat => seat.seatID));
-        } else {
-          // Handle the case where 'data.seats' is not an array
-          console.error('Received invalid data:', data);
-        }      
+  
+      const jsonResponse = await response.json();
+  
+      if (response.status === 200 && jsonResponse && Array.isArray(jsonResponse.seats)) {
+        let newSections = {};
+        console.log(jsonResponse.seats)
+        jsonResponse.seats.forEach(seat => {
+          const { section, row, col, purchased } = seat;
+  
+          if (!newSections[section]) {
+            newSections[section] = { sectionName: section, numRows: 0, numCol: 0, seats: [] };
+          }
+  
+          // Update number of rows and columns
+          newSections[section].numRows = Math.max(newSections[section].numRows, row.charCodeAt(0) - 'A'.charCodeAt(0) + 1);
+          newSections[section].numCol = Math.max(newSections[section].numCol, col);
+  
+          // Add seat data to the section
+          newSections[section].seats.push({ ...seat, purchased: purchased === 1 });
+        });
+  
+        setSections(Object.values(newSections).map(section => ({
+          ...section,
+          seats: section.seats.sort((a, b) => a.row.localeCompare(b.row) || a.col - b.col)
+        })));
+        setPurchasedSeats(jsonResponse.seats.filter(seat => seat.purchased === 1).map(seat => seat.seatID));
       } else {
-        console.error('Error fetching seats:', data);
+        console.error('Error fetching seats:', jsonResponse);
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
+
 
 
   const handlePurchase = async () => {
@@ -89,6 +103,9 @@ const CustomerPurchase = () => {
     }
   }
 
+
+
+
   const selectSeat = (seatId) => {
     if (purchasedSeats.includes(seatId)) {
       // Do nothing if the seat is purchased
@@ -105,12 +122,14 @@ const CustomerPurchase = () => {
     });
   };
 
+
+
   // Function to generate seating layout for all sections
   const generateSectionsLayout = () => {
     const maxRows = Math.max(...sections.map(section => section.numRows));
 
     let layout = [];
-    const sectionLabels = (
+    layout.push(
       <div className="SectionLabels" key="section-labels">
         {sections.map(section => (
           <div className="SectionLabel" key={`${section.sectionName}-label`}>
@@ -119,18 +138,19 @@ const CustomerPurchase = () => {
         ))}
       </div>
     );
-    layout.push(sectionLabels);
 
     for (let r = 0; r < maxRows; r++) {
-      let rowSeats = [];
-      for (let section of sections) {
-        for (let c = 0; c < section.numCol; c++) {
-          if (r < section.numRows) {
-            // Change here: Convert row number to letter (A, B, C, ...)
-            const rowLetter = String.fromCharCode('A'.charCodeAt(0) + r);
-            const seatId = `${section.sectionName[0].toUpperCase()}${rowLetter}${c + 1}`;
-            const isPurchased = purchasedSeats.includes(seatId);
-            rowSeats.push(
+      let rowSeats = sections.flatMap(section => {
+        // Ensure that section.seats is defined and is an array
+        if (!Array.isArray(section.seats)) {
+          return []; // Return an empty array if seats are not defined or not an array
+        }
+        return section.seats.filter(seat => seat.row.charCodeAt(0) - 'A'.charCodeAt(0) === r)
+          .sort((a, b) => a.col - b.col)
+          .map(seat => {
+            const seatId = seat.seatID;
+            const isPurchased = seat.purchased;
+            return (
               <div
                 className={`Seat ${selectedSeats.includes(seatId) ? 'selected' : ''} ${isPurchased ? 'purchased' : ''}`}
                 key={seatId}
@@ -139,14 +159,9 @@ const CustomerPurchase = () => {
                 {seatId}
               </div>
             );
-          } else {
-            // Add placeholder for invisible seats
-            rowSeats.push(<div className="Seat Invisible" key={`${section.sectionName}-seat-${r}-${c}`}></div>);
-          }
-        }
-      }
-    
-      // Create a new row element for the current row of seats
+          });
+      });
+
       const rowElement = (
         <div className="Row" key={`row-${r}`}>
           {rowSeats}
@@ -157,6 +172,7 @@ const CustomerPurchase = () => {
 
     return layout;
   };
+  
 
   const navigate = useNavigate();
 
