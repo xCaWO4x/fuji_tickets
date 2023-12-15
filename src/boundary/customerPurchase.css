@@ -33,6 +33,25 @@
     background-color: #007bff; /* Example selected color */
     color: white;
   }
+
+  .Seat:hover .SeatPrice {
+    display: block; /* Show the price on hover */
+  }
+
+  .SeatPrice {
+    display: none; /* Hide the price by default */
+    position: absolute;
+    top: -20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff; /* Background color for the price tooltip */
+    border: 1px solid #ddd; /* Border for the price tooltip */
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    /* Add more styles as needed */
+  }
+  
   
   .Shopping-cart {
     width: 300px;
