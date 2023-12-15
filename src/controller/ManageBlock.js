@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import './CreateShow.css'; 
 import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +37,7 @@ const ManageBlock = () => {
             },
             body: JSON.stringify({
                 ...blockDetails,
-                showID: currentShowID
+                    showID: currentShowID
             })
         }
         try {
@@ -50,6 +50,7 @@ const ManageBlock = () => {
 
         if (status === 400) {
             console.error(responseBody)
+            console.log(answer)
             console.log(payload)
         } else {
             console.log(answer)
