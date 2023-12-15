@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './CreateShow.css'; 
 import '../boundary/venuePage.js'
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ const CreateShow = ({ venueSections }) => {
 
   var data = {name: showDetails.name, venueID: currentVenueID.venueID, startDate:showDetails.startDate, price: parseFloat(price).toFixed(2)}
 
+  
   const handleInputChange = (type, value) => {
     setShowDetails(prevDetails => ({
       ...prevDetails,

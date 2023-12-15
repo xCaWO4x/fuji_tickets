@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import './CreateVenue.css'; 
 import { useNavigate } from 'react-router-dom';
 // import { CurrentPasswordContext } from '../App';
@@ -10,20 +10,26 @@ const CreateVenue = () => {
   const [credentials, setCredentials] = useState(''); // State for credentials
   const {currentVenueID, setCurrentVenueID} = useContext(CurrentVenueIDContext);
 
-
   const [sections, setSections] = useState([
-    { sectionName: 'left', numRows: 0, numCol: 0 },
-    { sectionName: 'center', numRows: 0, numCol: 0 },
-    { sectionName: 'right', numRows: 0, numCol: 0 },
+    { sectionName: 'left', numRows: 3, numCol: 3 },
+    { sectionName: 'center', numRows: 3, numCol: 4 },
+    { sectionName: 'right', numRows: 3, numCol: 3 },
   ]);
 
   // const { setCurrentPassword } = React.useContext(CurrentPasswordContext);
   // const { setCurrentVenue } = React.useContext(CurrentVenueContext);
   // Input for POST method
 
-  var data = {name: venueName, credentials: credentials, layouts: sections}
-
-  //Handler for creating venue
+  var data = {
+    name: venueName,
+    credentials: credentials,
+    layouts: sections.map(section => ({
+      section: section.sectionName,
+      numRows: section.numRows.toString(),
+      numCols: section.numCol.toString()
+    }))
+  };
+    
    const handlecreateVenue = async () => {
     try {
       let payload = {
@@ -37,8 +43,9 @@ const CreateVenue = () => {
       console.log(payload)
       const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/addVenue', payload);
       const answer = await response.json();
-      const status = answer["statusCode"]
-      setCurrentVenueID(answer["data"])
+      const status = answer["statusCode"];
+      const responseBody = answer["data"];
+      setCurrentVenueID(responseBody)
       console.log(answer)
 
       if (status === 400) {
@@ -53,6 +60,7 @@ const CreateVenue = () => {
     } 
     catch (error){
       console.error('Error during authentication:', error)
+      console.log(data)
     }
 } 
   

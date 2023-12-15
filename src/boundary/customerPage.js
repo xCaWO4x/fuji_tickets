@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext} from 'react';
 import './customerPage.css'; // Make sure to create this CSS file
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CustomerPage = () => {
  // Placeholder data for active shows with available seats
@@ -14,6 +14,7 @@ const CustomerPage = () => {
   const [activeShows, setActiveShows] = useState([]); 
   const [searchShow, setSearchShow] = useState('');
   const [searchVenue, setSearchVenue] = useState([]);
+  const { showName } = useParams();
   // console.log(searchShow)
   var data = {searchString: searchShow}
   
@@ -108,8 +109,8 @@ const CustomerPage = () => {
   }
 
 
-  const handleCustomerPurchase = () => {
-    navigate("/customerPurchase")
+  const handleCustomerPurchase = (selectedShowName) => {
+    navigate(`/customerPurchase/${selectedShowName}`);
   }
 
   const navigate = useNavigate();
@@ -124,13 +125,14 @@ const CustomerPage = () => {
         <button onClick={handleListActiveShows}>List All Active Shows</button> 
       </div>
       <div className="shows-table">
-        {activeShows.map((show) => (
+      {activeShows.map((show) => (
           <div key={show.showID} className="show-row"> 
             <div className="show-cell show-name">{show.name}</div>
-            {/* what is seatAvailable in our data schema? show.numSeats */}
             <div className="show-cell seats-available">Seats: {show.numSeats}</div>
             <div className="show-cell purchase-button-cell">
-              <button onClick={handleCustomerPurchase} className="purchase-button" >Purchase Tickets</button>
+              <button onClick={() => handleCustomerPurchase(show.name)} className="purchase-button">
+                Purchase Tickets
+              </button>
             </div>
           </div>
         ))}

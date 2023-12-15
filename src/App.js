@@ -26,18 +26,21 @@ import Home from './boundary/Home.js'
 export const CurrentPasswordContext = createContext(null);
 export const CurrentVenueIDContext = createContext(null);
 export const CurrentShowIDContext = createContext(null);
+export const CurrentShowConext = createContext(null);
 
 
 function App() {
   const [currentPassword, setCurrentPassword] = useState('');
   const [currentVenueID, setCurrentVenueID] = useState('');
   const [currentShowID, setCurrentShowID] = useState('');
+  const [currentShow, setCurrentShow] = useState({ showID: null, sections: [] })
 
   return (
     <div className="App">
       <CurrentPasswordContext.Provider value={{currentPassword, setCurrentPassword}}> 
       <CurrentVenueIDContext.Provider value={{currentVenueID, setCurrentVenueID}}>
       <CurrentShowIDContext.Provider value={{ currentShowID, setCurrentShowID }}>
+      <CurrentShowConext.Provider value={{ currentShow, setCurrentShow }}>
   {/* Your routes and components */}
 
       <HashRouter>
@@ -61,9 +64,13 @@ function App() {
             <Route path="/customerPurchase" element={<CustomerPurchase/>} />
             <Route path="/report" element={<CreateShowsReport />} />
             <Route path="/manageBlocks" element={<ManageBlock />} />
+            <Route path="/customerPurchase/:showName" element={<CustomerPurchase />} />
+
+
         </Routes>
 
    </HashRouter>
+    </CurrentShowConext.Provider>
    </CurrentShowIDContext.Provider>
    </CurrentVenueIDContext.Provider>
    </CurrentPasswordContext.Provider>

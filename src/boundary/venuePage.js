@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect} from 'react';
 import './venuePage.css';
 import { useNavigate } from 'react-router-dom';
-import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext } from '../App';
+import { CurrentPasswordContext, CurrentVenueIDContext, CurrentShowIDContext, ShowContext } from '../App';
 import CreateShowReports from '../controller/CreateShowReports';
 import CreateShow from '../controller/CreateShow';
 import ManageBlock from '../controller/ManageBlock'; 
@@ -13,9 +13,8 @@ const VenuePage = () => {
 
   const [shows, setShows] = useState([]);
   // var id = {showID: show.showID}
-
+  const {setCurrentShow} = useContext
   var data = {venueID: currentVenueID.venueID}
-  console.log(data)
   // const [showList, setShowList] = useState([]);
   // how to get show name from database
   // var deleteShowName = {name: shows.name}
@@ -49,6 +48,7 @@ const VenuePage = () => {
 
       if (status === 400) {
         // console.log(answer);
+        console.log(currentVenueID.venueID)
         console.error(responseBody)
       } else {
         setShows(responseBody)
@@ -129,8 +129,6 @@ const VenuePage = () => {
         console.error('Error during authentication:', error);
       }
   }  
-
-  const venueName = "Venue Name"; // Placeholder for venue name
 
   const handleGenerateReportClick = () => {
     navigate("/report"); // Navigate to the CreateShowsReport component
