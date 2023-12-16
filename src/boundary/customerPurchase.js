@@ -14,7 +14,8 @@ const CustomerPurchase = () => {
   const [purchasedSeats, setPurchasedSeats] = useState([]); // Placeholder for purchased seats
 
   var data = {seats: selectedSeats}
-
+  
+  // Function to calculate total cost of selected seats
   const calculateTotalCost = () => {
     return selectedSeats.reduce((total, seat) => {
       // Find the section for the current seat
@@ -41,6 +42,7 @@ const CustomerPurchase = () => {
     }
   }, [showName]);
 
+  // Function to fetch available seats
   const fetchAvailableSeats = async () => {
     try {
       const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/showAvailableSeats', {
@@ -84,11 +86,10 @@ const CustomerPurchase = () => {
   };
   
   
-
-
-
+  // Function to handle purchase
   const handlePurchase = async () => {
     try {
+      const actualShowName = showName.showName;
       let payload = {
         method: 'POST',
         mode: 'cors',
@@ -96,7 +97,7 @@ const CustomerPurchase = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          showName,
+          showName: actualShowName,
           seats: selectedSeats.map(({ section, row, col }) => ({ section, row, col })),
         }),
       };
@@ -134,8 +135,6 @@ const CustomerPurchase = () => {
       console.error('Error during authentication:', error)
     }
   }
-
-
 
 
   const selectSeat = (seat) => {
