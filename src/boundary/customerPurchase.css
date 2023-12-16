@@ -1,84 +1,83 @@
 /* CustomerPurchase.css */
 .CustomerPurchase {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .Seating-section {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .Row {
-    display: flex;
-    justify-content: center;
-    margin: 5px 0;
-  }
-  
-  .Seat {
-    padding: 5px;
-    margin: 2px;
-    border: 1px solid #000;
-    width: 30px;
-    text-align: center;
-    cursor: pointer; /* Makes the seat look clickable */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-  }
-  
-  /* Style when a seat is selected */
-  .Seat.selected {
-    background-color: #007bff; /* Example selected color */
-    color: white;
-  }
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
 
-  .Seat:hover .SeatPrice {
-    display: block; /* Show the price on hover */
-  }
+.Seating-section {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .SeatPrice {
-    display: none; /* Hide the price by default */
-    position: absolute;
-    top: -20px; /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff; /* Background color for the price tooltip */
-    border: 1px solid #ddd; /* Border for the price tooltip */
-    padding: 2px 5px;
-    border-radius: 3px;
-    white-space: nowrap;
-    /* Add more styles as needed */
-  }
-  
-  
-  .Shopping-cart {
-    width: 300px;
-    margin-left: 20px; /* Separation from the seating section */
-    border: 1px solid #ccc; /* Example border, you can adjust as needed */
-    padding: 10px;
-  }
-  
-  .Shopping-cart h3 {
-    margin-bottom: 10px;
-  }
-  
-  .Shopping-cart ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .Shopping-cart li {
-    margin-bottom: 5px;
-    padding: 5px;
-    background-color: #f0f0f0; /* Example background for list items */
-  }
-  
-  .Seat.purchased {
-    background-color: #343a40; /* Dark color for purchased seats */
-    color: #ccc;
-    cursor: not-allowed; /* Change cursor to indicate not clickable */
-  }
-  /* If you need responsive design, consider adding media queries */
-  
+.Row {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.Seat {
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #000;
+  width: 30px;
+  text-align: center;
+  cursor: pointer; /* Makes the seat look clickable */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Style when a seat is selected */
+.Seat.selected {
+  background-color: #007bff; /* Example selected color */
+  color: white;
+}
+
+.Seat:hover .SeatPrice {
+  display: block; /* Show the price on hover */
+}
+
+.SeatPrice {
+  display: none; /* Hide the price by default */
+  position: absolute;
+  top: -20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff; /* Background color for the price tooltip */
+  border: 1px solid #ddd; /* Border for the price tooltip */
+  padding: 2px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  /* Add more styles as needed */
+}
+
+
+.Shopping-cart {
+  width: 300px;
+  margin-left: 20px; /* Separation from the seating section */
+  border: 1px solid #ccc; /* Example border, you can adjust as needed */
+  padding: 10px;
+}
+
+.Shopping-cart h3 {
+  margin-bottom: 10px;
+}
+
+.Shopping-cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.Shopping-cart li {
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #f0f0f0; /* Example background for list items */
+}
+
+.Seat.purchased {
+  color: #666; /* Darken the text */
+  pointer-events: none; /* Disable clicking */
+  cursor: default;
+}
+/* If you need responsive design, consider adding media queries */

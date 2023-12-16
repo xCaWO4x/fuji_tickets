@@ -34,7 +34,7 @@ const CreateVenue = () => {
     try {
       let payload = {
         method: 'POST',
-        mode: 'cors', 
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -54,6 +54,7 @@ const CreateVenue = () => {
       } else {
         navigate('/venuePage') 
         console.log('Venue has been created')
+        console.log(payload.body)
         // setCurrentPassword(credentials)
         // setCurrentVenue(venueName)
       }
