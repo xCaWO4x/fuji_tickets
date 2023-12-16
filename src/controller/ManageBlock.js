@@ -126,6 +126,7 @@ const ManageBlock = () => {
                 }
             } catch (error) {
                 console.error('Error:', error); // Log the full error object
+                console.log(payload.body)
                 return []; // Return empty array in case of error
             }
         }
@@ -134,9 +135,8 @@ const ManageBlock = () => {
     
 
 
-    const processBlockSeatsData = async (availableSeats) => {
+    const processBlockSeatsData = async (availableSeats) => { 
         const blocksData = await fetchBlocks();
-        const availableSeats = await fetchAvailableSeats();
     
         if (!Array.isArray(blocksData) || !Array.isArray(availableSeats)) {
             return;
@@ -144,15 +144,13 @@ const ManageBlock = () => {
     
         const updatedBlocks = blocksData.map(block => {
             const seatsInBlock = availableSeats.filter(seat => {
-                // Assuming seat.row is a string like 'A', 'B', etc., and seat.col is a number
-                // Convert block.startRow and block.endRow to the corresponding format if necessary
-                const startRow = block.startRow.charCodeAt(0); // Convert 'A' to 65, 'B' to 66, etc.
+                const startRow = block.startRow.charCodeAt(0);
                 const endRow = block.endRow.charCodeAt(0);
                 const seatRow = seat.row.charCodeAt(0);
     
                 const rowMatch = seatRow >= startRow && seatRow <= endRow;
                 const colMatch = seat.col >= parseInt(block.startCol) && seat.col <= parseInt(block.endCol);
-                const sectionMatch = seat.section === block.startSection; // Assuming each block is in a single section
+                const sectionMatch = seat.section === block.startSection;
                 
                 return rowMatch && colMatch && sectionMatch;
             });
