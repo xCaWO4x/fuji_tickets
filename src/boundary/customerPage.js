@@ -1,23 +1,39 @@
 import React from 'react';
 import { useState, useContext} from 'react';
-import './customerPage.css'; // Make sure to create this CSS file
+import './customerPage.css'; 
 import { useNavigate, useParams } from 'react-router-dom';
 
 const CustomerPage = () => {
- // Placeholder data for active shows with available seats
-//  const activeShows = [
-//     { id: 1, name: "Active Show 1", seatsAvailable: 120 },
-//     { id: 2, name: "Active Show 2", seatsAvailable: 85 },
-//     // more active shows...
-//   ];
-
   const [activeShows, setActiveShows] = useState([]); 
   const [searchShow, setSearchShow] = useState('');
   const [searchVenue, setSearchVenue] = useState([]);
   const { showName } = useParams();
-  // console.log(searchShow)
+  
   var data = {searchString: searchShow}
   
+  const fetchAvailableSeats = async (showName) => {
+    try {
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/showAvailableSeats', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ showName }),
+      });
+      const jsonResponse = await response.json();
+
+      if (response.status === 200 && jsonResponse && Array.isArray(jsonResponse.seats)) {
+        return jsonResponse.seats.length;
+      } else {
+        console.error('Error fetching available seats:', jsonResponse);
+        return 0;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return 0;
+    }
+  };
+
   const handleSearchShow = async () => {
     try {
       let payload = {
@@ -50,32 +66,29 @@ const CustomerPage = () => {
 
   const handleListActiveShows = async () => {
     try {
-      let payload = {
+      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/listActiveShows', {
         method: 'GET',
-        mode: 'cors', 
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         }
-      }
-      //console.log(payload)
-      const response = await fetch('https://8uwxmxcgd2.execute-api.us-east-2.amazonaws.com/Nov30-2023-Class/fujiwara/listActiveShows', payload);
+      });
       const answer = await response.json();
       const status = answer["statusCode"]
-      const responseBody = answer["data"]
 
-      if (status === 400) {
-        // console.log(answer);
-        console.error(responseBody)
+      if (status === 200 && Array.isArray(answer["data"])) {
+        const showsWithAvailableSeats = await Promise.all(answer["data"].map(async (show) => {
+          const availableSeats = await fetchAvailableSeats(show.name);
+          return { ...show, availableSeats };
+        }));
+        setActiveShows(showsWithAvailableSeats);
       } else {
-        // setShows(responseBody)
-        console.log(answer)
-        setActiveShows(responseBody)
+        console.error('Error fetching active shows:', answer);
       }
-    } 
-    catch (error) {
-      console.error('Error during authentication:', error); 
+    } catch (error) {
+      console.error('Error:', error);
     }
-  }
+  };
 
   const handleSearchVenue = async () => {
     try {
@@ -126,17 +139,23 @@ const CustomerPage = () => {
       </div>
       <div className="shows-table">
       {activeShows.map((show) => (
-          <div key={show.showID} className="show-row"> 
-            <div className="show-cell show-name">{show.name}</div>
-            <div className="show-cell seats-available">Seats: {show.numSeats}</div>
-            <div className="show-cell purchase-button-cell">
+        <div key={show.showID} className="show-row"> 
+          <div className="show-cell show-name">{show.name}</div>
+          <div className="show-cell seats-available">Seats Available: {show.availableSeats}</div>
+          <div className="show-cell purchase-button-cell">
+            {show.availableSeats > 0 ? (
               <button onClick={() => handleCustomerPurchase(show.name)} className="purchase-button">
                 Purchase Tickets
               </button>
-            </div>
+            ) : (
+              <button disabled className="sold-out-button">
+                Sold Out
+              </button>
+            )}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+    </div>
       <div className="venue-table">
         {searchVenue.map((venue) => (
           <div key={venue.venueID} className="venue-row"> 
